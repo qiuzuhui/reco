@@ -1,5 +1,5 @@
 <template>
-  <v-app light>
+  <v-app light >
     <v-navigation-drawer
       persistent
       :mini-variant="miniVariant"
@@ -22,38 +22,35 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar fixed>
-      <v-toolbar-side-icon @click.stop="drawer = !drawer" light></v-toolbar-side-icon>
-      <v-btn
-        icon
-        light
-        @click.stop="miniVariant = !miniVariant"
-      >
-        <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        light
-        @click.stop="clipped = !clipped"
-      >
-        <v-icon>web</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        light
-        @click.stop="fixed = !fixed"
-      >
-        <v-icon>remove</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title"></v-toolbar-title>
+    <v-toolbar fixed class="light-blue">
+      <v-toolbar-side-icon @click.stop="drawer = !drawer" dark></v-toolbar-side-icon>
+      <!--<v-btn-->
+        <!--icon-->
+        <!--light-->
+        <!--@click.stop="miniVariant = !miniVariant"-->
+      <!--&gt;-->
+        <!--<v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>-->
+      <!--</v-btn>-->
+      <v-toolbar-title v-text="title" style="color:white;"></v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn
-        icon
-        light
-        @click.stop="rightDrawer = !rightDrawer"
+      <v-menu
+        offset-y
+        :close-on-content-click="false"
+        :nudge-width="200"
+        v-model="menu"
+        style="margin-right: 20px;"
       >
-        <v-icon>menu</v-icon>
-      </v-btn>
+        <v-avatar slot="activator">
+          <img src="/static/john.jpg" alt="John">
+        </v-avatar>
+        <v-list>
+          <v-list-tile >
+            <v-list-tile-title>LogOut</v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
+
+
     </v-toolbar>
     <main>
       <v-container fluid>
@@ -72,20 +69,6 @@
         </v-slide-y-transition>
       </v-container>
     </main>
-    <v-navigation-drawer
-      temporary
-      :right="right"
-      v-model="rightDrawer"
-    >
-      <v-list>
-        <v-list-tile @click="right = !right">
-          <v-list-tile-action>
-            <v-icon light>compare_arrows</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title>Switch drawer (click me)</v-list-tile-title>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
     <v-footer :fixed="fixed">
       <span>&copy; 2017</span>
     </v-footer>
@@ -93,10 +76,12 @@
 </template>
 
 <script>
+  import VMenu from '../node_modules/vuetify/src/components/VMenu/VMenu'
   export default {
+    components: {VMenu},
     data () {
       return {
-        clipped: false,
+        clipped: true,
         drawer: true,
         fixed: false,
         items: [
@@ -105,7 +90,7 @@
         miniVariant: false,
         right: true,
         rightDrawer: false,
-        title: 'Vuetify.js'
+        title: 'RECO'
       }
     }
   }
