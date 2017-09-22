@@ -1,5 +1,5 @@
 <template>
-  <v-app light >
+  <v-app light>
     <div>
       <v-alert success value="true">
         This is a success alert.
@@ -38,15 +38,9 @@
       <v-container fluid>
         <v-slide-y-transition mode="out-in">
           <v-layout column align-center>
-            <img src="/static/v.png" alt="Vuetify.js" class="mb-5">
-            <blockquote>
-              &#8220;First, solve the problem. Then, write the code.&#8221;
-              <footer>
-                <small>
-                  <em>&mdash;John Johnson</em>
-                </small>
-              </footer>
-            </blockquote>
+            <div v-for="scan in scans">
+              {{scan.description}}
+            </div>
           </v-layout>
         </v-slide-y-transition>
       </v-container>
@@ -60,6 +54,8 @@
 <script>
   import UserMenu from './components/UserMenu'
   import VAlert from 'vuetify/src/components/VAlert'
+  import vuex from 'vuex'
+
   export default {
     components: {VAlert, UserMenu},
     data () {
@@ -68,13 +64,24 @@
         drawer: true,
         fixed: false,
         navItems: [
-          { icon: 'bubble_chart', title: '场景' }
+          {icon: 'bubble_chart', title: '场景'}
         ],
         miniVariant: false,
         right: true,
         rightDrawer: false,
         title: 'RECO'
       }
+    },
+    actions: {
+      ...vuex.mapActions({})
+    },
+    computed: {
+      ...vuex.mapGetters({
+        scans: 'scans/all'
+      })
+    },
+    created () {
+      this.$store.dispatch('scans/reFetch')
     }
   }
 </script>
