@@ -17,6 +17,7 @@
           value="true"
           v-for="(item, i) in navItems"
           :key="i"
+          @click.stop="$router.push(item.path)"
         >
           <v-list-tile-action>
             <v-icon light v-html="item.icon"></v-icon>
@@ -32,7 +33,6 @@
       <v-toolbar-title v-text="title" style="color:white;"></v-toolbar-title>
       <v-spacer></v-spacer>
       <user-menu></user-menu>
-
     </v-toolbar>
     <main>
       <v-container fluid>
@@ -60,7 +60,7 @@
         drawer: true,
         fixed: false,
         navItems: [
-          {icon: 'bubble_chart', title: '场景'}
+          {icon: 'bubble_chart', title: '场景', path: 'scans'}
         ],
         miniVariant: false,
         right: true,
@@ -75,6 +75,8 @@
     },
     created () {
       this.$store.dispatch('scans/reFetch')
+    },
+    methods: {
     }
   }
 </script>

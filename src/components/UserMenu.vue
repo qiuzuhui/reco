@@ -33,3 +33,9 @@
     }
   }
 </script>
+
+<style scoped>
+  ul.list>li{
+    cursor: pointer;
+  }
+</style>
