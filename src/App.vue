@@ -1,10 +1,5 @@
 <template>
   <v-app light>
-    <div>
-      <v-alert success value="true">
-        This is a success alert.
-      </v-alert>
-    </div>
     <v-navigation-drawer
       persistent
       :mini-variant="miniVariant"
@@ -28,7 +23,7 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar fixed class="light-blue">
+    <v-toolbar class="indigo" dark fixed>
       <v-toolbar-side-icon @click.stop="drawer = !drawer" dark></v-toolbar-side-icon>
       <v-toolbar-title v-text="title" style="color:white;"></v-toolbar-title>
       <v-spacer></v-spacer>

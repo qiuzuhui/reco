@@ -5,15 +5,19 @@
     :nudge-width="200"
     class="mr-2 user-menu"
   >
-    <div slot="activator" class="light-blue" >
+    <div slot="activator">
       <v-avatar size="40px">
-        <img src="/static/john.jpg" alt="John">
+        <img src="/static/images/john.jpg" alt="John">
       </v-avatar>
       <div style="display: inline-block;color: white;padding: 5px;">John Leider</div>
     </div>
 
     <v-card>
       <v-list>
+        <v-list-tile >
+          <v-list-tile-title>余额：30000元</v-list-tile-title>
+        </v-list-tile>
+        <v-divider ></v-divider>
         <v-list-tile >
           <v-list-tile-title>LogOut</v-list-tile-title>
         </v-list-tile>
