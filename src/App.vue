@@ -36,13 +36,9 @@
     </v-toolbar>
     <main>
       <v-container fluid>
-        <v-slide-y-transition mode="out-in">
-          <v-layout column align-center>
-            <div v-for="scan in scans">
-              {{scan.description}}
-            </div>
-          </v-layout>
-        </v-slide-y-transition>
+        <v-slide-x-transition mode="out-in">
+          <router-view></router-view>
+        </v-slide-x-transition>
       </v-container>
     </main>
     <v-footer :fixed="fixed">
@@ -71,9 +67,6 @@
         rightDrawer: false,
         title: 'RECO'
       }
-    },
-    actions: {
-      ...vuex.mapActions({})
     },
     computed: {
       ...vuex.mapGetters({
