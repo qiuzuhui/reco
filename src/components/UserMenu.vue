@@ -7,7 +7,7 @@
   >
     <div slot="activator">
       <v-avatar size="40px">
-        <img src="/static/images/john.jpg" alt="John">
+        <img src="/static/demo-data/john.jpg" alt="John">
       </v-avatar>
       <div style="display: inline-block;color: white;padding: 5px;">John Leider</div>
     </div>
@@ -19,7 +19,7 @@
         </v-list-tile>
         <v-divider ></v-divider>
         <v-list-tile >
-          <v-list-tile-title>LogOut</v-list-tile-title>
+          <v-list-tile-title>注销</v-list-tile-title>
         </v-list-tile>
       </v-list>
     </v-card>

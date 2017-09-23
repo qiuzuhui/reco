@@ -45,7 +45,6 @@
 <script>
   import UserMenu from './components/UserMenu'
   import VAlert from 'vuetify/src/components/VAlert'
-  import vuex from 'vuex'
 
   export default {
     components: {VAlert, UserMenu},
@@ -62,11 +61,6 @@
         rightDrawer: false,
         title: 'RECO'
       }
-    },
-    computed: {
-      ...vuex.mapGetters({
-        scans: 'scans/all'
-      })
     },
     created () {
       this.$store.dispatch('scans/reFetch')

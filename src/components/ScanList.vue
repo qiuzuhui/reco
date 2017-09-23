@@ -1,17 +1,14 @@
 <template>
   <v-layout row wrap>
-    <v-flex xs12 sm6 md4 lg3 class="pa-1" v-for="i in 30" :key="i">
+    <v-flex xs12 sm6 md4 lg3 class="pa-1" v-for="(scan,index) in scans" :key="index">
       <v-card class="scan-card">
-        <v-card-media src="/static/images/desert.jpg" height="200px">
+        <v-card-media :src="scan.thumbnail" height="200px"  @click.native.stop="preview(scan.reviewId)" >
         </v-card-media>
         <v-card-actions>
-          <span>黄昏时的沙漠</span>
+          <span>{{scan.title}}</span>
           <v-spacer></v-spacer>
-          <v-btn icon @click.native.stop="preview(i)">
+          <v-btn icon @click.native.stop="preview(scan.reviewId)">
             <v-icon>fullscreen</v-icon>
-          </v-btn>
-          <v-btn icon>
-            <v-icon>edit</v-icon>
           </v-btn>
           <v-btn icon>
             <v-icon>share</v-icon>
@@ -26,6 +23,9 @@
       <div style="background: white;height: 100%;overflow: hidden;">
         <v-toolbar dark class="indigo" fixed>
           <v-spacer></v-spacer>
+          <v-btn icon>
+            <v-icon>share</v-icon>
+          </v-btn>
           <v-btn icon @click.native="stopPreview()" dark>
             <v-icon>close</v-icon>
           </v-btn>
@@ -40,7 +40,8 @@
               </v-flex>
             </v-layout>
           </v-container>
-          <iframe v-show="!loadingPreview" :src="previewUrl" frameborder="0" @load="loadingPreview = false">loading</iframe>
+          <iframe v-show="!loadingPreview" :src="previewUrl" frameborder="0" @load="loadingPreview = false">loading
+          </iframe>
         </main>
       </div>
     </v-dialog>
@@ -50,6 +51,7 @@
 
 <script>
   import { LetterCube } from 'vue-loading-spinner'
+  import { mapGetters } from 'vuex'
 
   export default {
     name: 'ScanList',
@@ -64,16 +66,24 @@
       LetterCube
     },
     methods: {
-      preview (i) {
+      preview (reviewId) {
         this.previewing = true
         this.loadingPreview = true
-        this.previewUrl = 'https://beta.benaco.com/embed/0674cf4f-2155-45d9-858c-4ef1502c5d69'
+        this.previewUrl = 'https://beta.benaco.com/embed/' + reviewId
       },
       stopPreview () {
         this.previewing = false
         this.previewUrl = ''
         this.loadingPreview = false
+      },
+      removeScan (id) {
+        this.$store.dispatch('scans/remove', id)
       }
+    },
+    computed: {
+      ...mapGetters({
+        scans: 'scans/all'
+      })
     }
   }
 </script>
@@ -81,7 +91,9 @@
 <style scoped>
   .scan-card {
   }
-
+  .card__media{
+    cursor: pointer;
+  }
   iframe {
     height: 100%;
     width: 100%;
