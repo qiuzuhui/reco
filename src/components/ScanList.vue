@@ -16,6 +16,9 @@
           <v-btn icon>
             <v-icon>share</v-icon>
           </v-btn>
+          <v-btn icon>
+            <v-icon>delete</v-icon>
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-flex>
@@ -53,7 +56,8 @@
     data () {
       return {
         previewing: 0,
-        loadingPreview: false
+        loadingPreview: false,
+        previewUrl: ''
       }
     },
     components: {
@@ -67,7 +71,7 @@
       },
       stopPreview () {
         this.previewing = false
-        this.previewUrl = '#'
+        this.previewUrl = ''
         this.loadingPreview = false
       }
     }
