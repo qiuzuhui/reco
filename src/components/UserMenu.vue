@@ -2,7 +2,7 @@
   <v-menu
     offset-y
     :close-on-content-click="false"
-    :nudge-width="200"
+    :nudge-width="150"
     class="mr-2 user-menu"
   >
     <div slot="activator">
