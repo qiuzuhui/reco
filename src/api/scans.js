@@ -29,7 +29,7 @@ export default {
   },
   async remove (id) {
     let index = await this.getIndex(id)
-    return data.slice(index, 1)
+    return data.splice(index, 1)
   },
   get (id) {
     return new Promise(function (resolve, reject) {
@@ -42,7 +42,7 @@ export default {
   },
   async update (data) {
     let index = await this.getIndex(data.id)
-    return data.slice(index, 1, data)
+    return data.splice(index, 1, data)
   }
 
 }

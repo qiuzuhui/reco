@@ -2,18 +2,18 @@
   <v-layout row wrap>
     <v-flex xs12 sm6 md4 lg3 class="pa-1" v-for="(scan,index) in scans" :key="index">
       <v-card class="scan-card">
-        <v-card-media :src="scan.thumbnail" height="200px"  @click.native.stop="preview(scan.reviewId)" >
+        <v-card-media :src="scan.thumbnail" height="200px" @click.native.stop="preview(scan.reviewId)">
         </v-card-media>
         <v-card-actions>
           <span>{{scan.title}}</span>
           <v-spacer></v-spacer>
-          <v-btn icon @click.native.stop="preview(scan.reviewId)">
+          <v-btn icon @click.native.stop="preview(scan)">
             <v-icon>fullscreen</v-icon>
           </v-btn>
           <v-btn icon>
             <v-icon>share</v-icon>
           </v-btn>
-          <v-btn icon>
+          <v-btn icon @click.native.stop="removeScan(scan)">
             <v-icon>delete</v-icon>
           </v-btn>
         </v-card-actions>
@@ -59,25 +59,26 @@
       return {
         previewing: 0,
         loadingPreview: false,
-        previewUrl: ''
+        previewUrl: '',
+        fab: false
       }
     },
     components: {
       LetterCube
     },
     methods: {
-      preview (reviewId) {
+      preview (scan) {
         this.previewing = true
         this.loadingPreview = true
-        this.previewUrl = 'https://beta.benaco.com/embed/' + reviewId
+        this.previewUrl = 'https://beta.benaco.com/embed/' + scan.reviewId
       },
       stopPreview () {
         this.previewing = false
         this.previewUrl = ''
         this.loadingPreview = false
       },
-      removeScan (id) {
-        this.$store.dispatch('scans/remove', id)
+      removeScan (scan) {
+        this.$store.dispatch('scans/remove', scan.id)
       }
     },
     computed: {
@@ -91,7 +92,7 @@
 <style scoped>
   .scan-card {
   }
-  .card__media{
+  .card__media {
     cursor: pointer;
   }
   iframe {

@@ -9,9 +9,8 @@
       <v-avatar size="40px">
         <img src="/static/demo-data/john.jpg" alt="John">
       </v-avatar>
-      <div style="display: inline-block;color: white;padding: 5px;">John Leider</div>
+      <div style="display: inline-block;color: white;padding: 5px;">沙漠之鹰</div>
     </div>
-
     <v-card>
       <v-list>
         <v-list-tile >
