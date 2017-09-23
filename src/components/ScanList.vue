@@ -19,16 +19,26 @@
         </v-card-actions>
       </v-card>
     </v-flex>
-    <v-dialog v-model="previewing" fullscreen transition="dialog-bottom-transition" :overlay=false >
+    <v-dialog v-model="previewing" fullscreen transition="dialog-bottom-transition" :overlay=false>
       <div style="background: white;height: 100%;">
-        <v-toolbar dark  class="indigo" fixed>
-          <v-toolbar-title>Settings</v-toolbar-title>
+        <v-toolbar dark class="indigo" fixed>
           <v-spacer></v-spacer>
-          <v-btn icon @click.native="previewing = false" dark>
+          <v-btn icon @click.native="stopPreview()" dark>
             <v-icon>close</v-icon>
           </v-btn>
         </v-toolbar>
-        <iframe src="http://47.91.198.40/view.html?id=3da9e0a7-6608-476d-b5c8-91a01a7e9320" frameborder="0" style="height: 100%;width: 100%;padding-top: 64px;"></iframe>
+        <main style="height: 100%;width: 100%;">
+          <v-container fill-height v-show="loadingPreview">
+            <v-layout align-center>
+              <v-flex class="text-xs-center">
+                <div style="display: inline-block;">
+                  <letter-cube size="60px"></letter-cube>
+                </div>
+              </v-flex>
+            </v-layout>
+          </v-container>
+          <iframe v-show="!loadingPreview" :src="previewUrl" frameborder="0" @load="loadingPreview = false">loading</iframe>
+        </main>
       </div>
     </v-dialog>
 
@@ -36,17 +46,29 @@
 </template>
 
 <script>
+  import { LetterCube } from 'vue-loading-spinner'
+
   export default {
     name: 'ScanList',
     data () {
       return {
-        previewing: 0
+        previewing: 0,
+        loadingPreview: false
       }
+    },
+    components: {
+      LetterCube
     },
     methods: {
       preview (i) {
         this.previewing = true
-        // set scanId
+        this.loadingPreview = true
+        this.previewUrl = 'https://beta.benaco.com/embed/0674cf4f-2155-45d9-858c-4ef1502c5d69'
+      },
+      stopPreview () {
+        this.previewing = false
+        this.previewUrl = '#'
+        this.loadingPreview = false
       }
     }
   }
@@ -54,7 +76,10 @@
 
 <style scoped>
   .scan-card {
-    /*width: 300px;*/
-    /*margin: auto;*/
+  }
+
+  iframe {
+    height: 100%;
+    width: 100%;
   }
 </style>
