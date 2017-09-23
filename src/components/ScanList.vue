@@ -20,7 +20,7 @@
       </v-card>
     </v-flex>
     <v-dialog v-model="previewing" fullscreen transition="dialog-bottom-transition" :overlay=false>
-      <div style="background: white;height: 100%;">
+      <div style="background: white;height: 100%;overflow: hidden;">
         <v-toolbar dark class="indigo" fixed>
           <v-spacer></v-spacer>
           <v-btn icon @click.native="stopPreview()" dark>
