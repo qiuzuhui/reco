@@ -1,4 +1,4 @@
-import scans from '../../api/scans'
+import scans from '../../api/mock/scans'
 
 export default {
   namespaced: true,

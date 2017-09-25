@@ -1,7 +1,6 @@
 /* eslint-disable no-useless-escape */
 export default {
   required: (value) => {
-    console.log(value)
     return !!value || '请输入'
   },
   email: (value) => {

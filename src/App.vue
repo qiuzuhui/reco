@@ -36,9 +36,6 @@
         </v-slide-x-transition>
       </v-container>
     </main>
-    <v-footer :fixed="fixed">
-      <span>&copy; 2017</span>
-    </v-footer>
   </v-app>
 </template>
 

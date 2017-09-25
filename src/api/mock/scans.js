@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import Memory from '../Memory'
 
 let data = [{
   'id': 38,
@@ -30,33 +30,4 @@ let data = [{
   'createTime': 'Sat Sep 23 2017 21:37:40 GMT+0800 (CST)'
 }]
 
-export default {
-  fetch () {
-    return new Promise(function (resolve, reject) {
-      resolve(_.clone(data))
-    })
-  },
-  add (scan) {
-    return new Promise(function (resolve, reject) {
-      resolve(data.push(scan))
-    })
-  },
-  async remove (id) {
-    let index = await this.getIndex(id)
-    return data.splice(index, 1)
-  },
-  get (id) {
-    return new Promise(function (resolve, reject) {
-      resolve(data.filter((item) => item.id === id)[0])
-    })
-  },
-  async getIndex (id) {
-    let item = await this.get(id)
-    return data.indexOf(item)
-  },
-  async update (data) {
-    let index = await this.getIndex(data.id)
-    return data.splice(index, 1, data)
-  }
-
-}
+export default new Memory(data)
