@@ -1,12 +1,15 @@
+import ImageTools from './ImageTools'
+
 export default {
   readAsDataURL (file) {
     if (/\.(jpe?g|png|gif)$/i.test(file.name)) {
       return new Promise((resolve, reject) => {
-        let reader = new FileReader()
-        reader.addEventListener('load', function () {
-          resolve(this.result)
-        }, false)
-        reader.readAsDataURL(file)
+        ImageTools.resize(file, {
+          width: 800,
+          height: 400
+        }, function (blob, didItResize) {
+          resolve(window.URL.createObjectURL(blob))
+        })
       })
     }
   }
