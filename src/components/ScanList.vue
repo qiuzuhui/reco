@@ -4,7 +4,7 @@
       <v-layout row wrap>
         <v-flex xs12 sm6 md4 lg6>
           <div class="title-btn">
-            <v-btn primary>新建</v-btn>
+            <v-btn primary @click.native.stop="$router.push('/scans/new')">新建</v-btn>
           </div>
         </v-flex>
         <v-flex xs12 sm6 md4 lg3>
