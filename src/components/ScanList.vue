@@ -42,7 +42,7 @@
           <v-btn icon>
             <v-icon>share</v-icon>
           </v-btn>
-          <v-btn icon @click.native.stop="removeScan(scan)">
+          <v-btn icon @click.native.stop="confirmRemove(scan)">
             <v-icon>delete</v-icon>
           </v-btn>
         </v-card-actions>
@@ -74,6 +74,19 @@
         </main>
       </div>
     </v-dialog>
+    <v-dialog v-model="removing">
+      <v-card>
+        <v-card-title class="headline">是否确定删除此场景?</v-card-title>
+        <v-card-text>
+          删除场景后，数据将无法找回
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn class="green--text darken-1" flat="flat" primary @click.native="removeScan()">确定</v-btn>
+          <v-btn class="green--text darken-1" flat="flat" @click.native="closeDeleteDialog()">取消</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
 
   </v-layout>
 </template>
@@ -86,7 +99,8 @@
     name: 'ScanList',
     data () {
       return {
-        previewing: 0,
+        previewing: false,
+        removing: false,
         loadingPreview: false,
         previewUrl: '',
         fab: false
@@ -106,8 +120,18 @@
         this.previewUrl = ''
         this.loadingPreview = false
       },
+      confirmRemove (scan) {
+        this.removing = true
+        this.removeingScanId = scan.id
+      },
+      closeDeleteDialog () {
+        this.removing = false
+        this.removeingScanId = null
+      },
       removeScan (scan) {
-        this.$store.dispatch('scans/remove', scan.id)
+        this.$store.dispatch('scans/remove', this.removeingScanId).then(() => {
+          this.closeDeleteDialog()
+        })
       }
     },
     computed: {
@@ -119,18 +143,22 @@
 </script>
 
 <style scoped>
-  .title-btn{
+  .title-btn {
     display: inline-block;
   }
-  .search-box{
+
+  .search-box {
     padding-top: 10px;
   }
+
   .scan-card {
   }
-  .scan-list-toolbar.toolbar{
+
+  .scan-list-toolbar.toolbar {
     box-shadow: none;
     background: none;
   }
+
   .card__media {
     cursor: pointer;
   }
