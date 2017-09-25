@@ -25,9 +25,7 @@ export default {
     },
 
     async logout ({commit}) {
-      let current = await users.current()
       commit('setCurrent', null)
-      return current
     }
   },
   getters: {
