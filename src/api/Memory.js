@@ -13,9 +13,7 @@ export default class {
   }
 
   add (scan) {
-    return new Promise((resolve, reject) => {
-      resolve(this.data.push(scan))
-    })
+    return this.update(scan)
   }
 
   async remove (id) {
@@ -36,7 +34,10 @@ export default class {
 
   async update (data) {
     let index = await this.getIndex(data[this.idProperty])
-    return this.data.splice(index, 1, data)
+    if (index < 0) {
+      return this.data.push(data)
+    } else {
+      return this.data.splice(index, 1, data)
+    }
   }
-
 }

@@ -31,10 +31,13 @@
         </v-flex>
       </v-layout>
       <v-layout row wrap style="border: 1px dotted lightgray; padding: 5px;" class="mt-4">
-        <v-flex xs12 sm6 md4 lg3 class="pa-1" v-for="(photo,index) in scan.photos" :key="index">
+        <v-flex xs12 sm6 md4 lg3 class="pa-1" v-for="(photo,index) in sortedPhotos" :key="photo.name">
           <v-card class="photo-card">
-            <v-card-media :src="photo.path" height="200px">
+            <v-card-media :src="photo.dataUrl" v-show="photo.dataUrl" height="200px">
             </v-card-media>
+            <v-card-text class="text-xs-center" v-show="!photo.dataUrl" style="line-height: 168px;">
+              <v-progress-circular indeterminate class="primary--text"></v-progress-circular>
+            </v-card-text>
             <v-card-actions>
               <span>{{photo.name}}</span>
               <v-spacer></v-spacer>
@@ -79,7 +82,7 @@
 <script>
   import rules from './common/rules'
   import Utils from './common/Utils'
-  import _ from 'lodash'
+  import Memory from '../api/Memory'
 
   export default {
     name: 'ScanCreator',
@@ -91,7 +94,10 @@
           title: '',
           type: '',
           number: '',
-          photos: []
+          photos: new Memory({
+            data: [],
+            idProperty: 'name'
+          })
         },
         rules
       }
@@ -106,23 +112,29 @@
         }
       },
       chooseFiles () {
+        this.$refs.uploadFiles.value = null
         this.$refs.uploadFiles.click()
       },
       removeFile (item) {
-        console.log('remove', item)
-        _.remove(this.scan.photos, (photo) => {
-          return photo.name === item.name
-        })
+        this.scan.photos.remove(item.name)
       },
       async addFiles () {
-        console.log(Date.now())
-        var data = await Utils.readAsDataURLs(this.$refs.uploadFiles.files)
-        console.log(Date.now())
-        data.forEach((item) => {
-          this.scan.photos.push({
-            name: item.name,
-            path: item.dataUrl
+        [].forEach.call(this.$refs.uploadFiles.files, (file) => {
+          let item = {
+            name: file.name,
+            dataUrl: ''
+          }
+          this.scan.photos.add(item)
+          Utils.readAsDataURL(file).then((dataUrl) => {
+            item.dataUrl = dataUrl
           })
+        })
+      }
+    },
+    computed: {
+      sortedPhotos () {
+        return this.scan.photos.data.sort((item1, item2) => {
+          return item1.name > item2 ? 1 : -1
         })
       }
     }
