@@ -30,7 +30,7 @@
           ></v-text-field>
         </v-flex>
       </v-layout>
-      <div style="border: 1px dotted lightgray; padding: 5px;" class="mt-4">
+      <v-layout row wrap style="border: 1px dotted lightgray; padding: 5px;" class="mt-4">
         <v-flex xs12 sm6 md4 lg3 class="pa-1" v-for="(photo,index) in scan.photos" :key="index">
           <v-card class="photo-card">
             <v-card-media :src="photo.path" height="200px">
@@ -44,8 +44,17 @@
             </v-card-actions>
           </v-card>
         </v-flex>
-      </div>
-      <div class="text-xs-center pt-4">
+        <v-flex  xs12 sm6 md4 lg3 class="pa-1" >
+          <v-card class="photo-card" style="cursor: pointer;" @click.native.stop="chooseFiles()">
+            <v-card-text class="text-xs-center">
+              <div style="height: 220px;">
+                  <i data-v-50239e73="" class="material-icons icon" style=" font-size: 220px; color: #b9b7b7; ">note_add</i>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-flex>
+      </v-layout>
+      <div class="text-xs-center text-md-right pt-4">
         <v-btn
           :loading="creating"
           @click.native.stop="createScan()"
@@ -78,6 +87,10 @@
           type: '',
           number: '',
           photos: [
+            {
+              name: 'ttt.jpg',
+              path: '/static/demo-data/nest.jpg'
+            },
             {
               name: 'ttt.jpg',
               path: '/static/demo-data/nest.jpg'
