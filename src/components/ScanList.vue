@@ -1,5 +1,34 @@
 <template>
   <v-layout row wrap>
+    <v-flex xs12>
+      <v-layout row wrap>
+        <v-flex xs12 sm6 md4 lg6>
+          <div class="title-btn">
+            <v-btn primary>新建</v-btn>
+          </div>
+        </v-flex>
+        <v-flex xs12 sm6 md4 lg3>
+          <div class="title-btn">
+            <v-btn flat primary>全部</v-btn>
+          </div>
+          <div class="title-btn">
+            <v-btn flat primary>已完成</v-btn>
+          </div>
+          <div class="title-btn">
+            <v-btn flat primary>处理中</v-btn>
+          </div>
+        </v-flex>
+        <v-flex xs12 sm6 md4 lg3>
+          <v-text-field
+            placeholder="搜索"
+            append-icon="search"
+            class="search-box"
+          ></v-text-field>
+        </v-flex>
+      </v-layout>
+    </v-flex>
+    <v-flex xs12>
+    </v-flex>
     <v-flex xs12 sm6 md4 lg3 class="pa-1" v-for="(scan,index) in scans" :key="index">
       <v-card class="scan-card">
         <v-card-media :src="scan.thumbnail" height="200px" @click.native.stop="preview(scan.reviewId)">
@@ -90,11 +119,22 @@
 </script>
 
 <style scoped>
+  .title-btn{
+    display: inline-block;
+  }
+  .search-box{
+    padding-top: 10px;
+  }
   .scan-card {
+  }
+  .scan-list-toolbar.toolbar{
+    box-shadow: none;
+    background: none;
   }
   .card__media {
     cursor: pointer;
   }
+
   iframe {
     height: 100%;
     width: 100%;

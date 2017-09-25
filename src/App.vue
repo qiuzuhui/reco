@@ -54,9 +54,7 @@
         drawer: true,
         fixed: false,
         navItems: [
-          {icon: 'bubble_chart', title: '所有场景', path: 'scans'},
-          {icon: 'bubble_chart', title: '已处理', path: 'scans'},
-          {icon: 'bubble_chart', title: '处理中', path: 'scans'}
+          {icon: 'bubble_chart', title: '场景处理', path: 'scans'}
         ],
         miniVariant: false,
         right: true,
