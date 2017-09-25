@@ -38,17 +38,18 @@
             <v-card-actions>
               <span>{{photo.name}}</span>
               <v-spacer></v-spacer>
-              <v-btn icon>
+              <v-btn icon @click="removeFile(photo)">
                 <v-icon>delete</v-icon>
               </v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>
-        <v-flex  xs12 sm6 md4 lg3 class="pa-1" >
-          <v-card class="photo-card" style="cursor: pointer;" @click.native.stop="chooseFiles()">
+        <v-flex xs12 sm6 md4 lg3 class="pa-1">
+          <v-card class="photo-card" style="cursor: pointer;" @click.stop="chooseFiles()">
             <v-card-text class="text-xs-center">
               <div style="height: 220px;">
-                  <i data-v-50239e73="" class="material-icons icon" style=" font-size: 220px; color: #b9b7b7; ">note_add</i>
+                <i data-v-50239e73="" class="material-icons icon"
+                   style=" font-size: 220px; color: #b9b7b7; ">note_add</i>
               </div>
             </v-card-text>
           </v-card>
@@ -69,6 +70,7 @@
         >
           取消
         </v-btn>
+        <input type="file" style="display: none;" @change='addFiles()' multiple="true" ref="uploadFiles"/>
       </div>
     </v-form>
   </div>
@@ -76,6 +78,9 @@
 
 <script>
   import rules from './common/rules'
+  import Utils from './common/Utils'
+  import _ from 'lodash'
+
   export default {
     name: 'ScanCreator',
     data () {
@@ -86,16 +91,7 @@
           title: '',
           type: '',
           number: '',
-          photos: [
-            {
-              name: 'ttt.jpg',
-              path: '/static/demo-data/nest.jpg'
-            },
-            {
-              name: 'ttt.jpg',
-              path: '/static/demo-data/nest.jpg'
-            }
-          ]
+          photos: []
         },
         rules
       }
@@ -108,6 +104,26 @@
             this.creating = false
           })
         }
+      },
+      chooseFiles () {
+        this.$refs.uploadFiles.click()
+      },
+      removeFile (item) {
+        console.log('remove', item)
+        _.remove(this.scan.photos, (photo) => {
+          return photo.name === item.name
+        })
+      },
+      async addFiles () {
+        console.log(Date.now())
+        var data = await Utils.readAsDataURLs(this.$refs.uploadFiles.files)
+        console.log(Date.now())
+        data.forEach((item) => {
+          this.scan.photos.push({
+            name: item.name,
+            path: item.dataUrl
+          })
+        })
       }
     }
   }

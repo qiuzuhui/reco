@@ -5,4 +5,4 @@ let data = [{
   password: '123'
 }]
 
-export default new Memory(data)
+export default new Memory({data: data})

@@ -1,8 +1,9 @@
 import _ from 'lodash'
 
 export default class {
-  constructor (data) {
-    this.data = data
+  constructor (args) {
+    this.data = args.data
+    this.idProperty = args.idProperty || 'id'
   }
 
   fetch () {
@@ -24,7 +25,7 @@ export default class {
 
   get (id) {
     return new Promise((resolve, reject) => {
-      resolve(this.data.filter((item) => item.id === id)[0])
+      resolve(this.data.filter((item) => item[this.idProperty] === id)[0])
     })
   }
 
@@ -34,7 +35,7 @@ export default class {
   }
 
   async update (data) {
-    let index = await this.getIndex(data.id)
+    let index = await this.getIndex(data[this.idProperty])
     return this.data.splice(index, 1, data)
   }
 

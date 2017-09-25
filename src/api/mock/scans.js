@@ -30,4 +30,4 @@ let data = [{
   'createTime': 'Sat Sep 23 2017 21:37:40 GMT+0800 (CST)'
 }]
 
-export default new Memory(data)
+export default new Memory({data: data})
