@@ -134,7 +134,7 @@
     computed: {
       sortedPhotos () {
         return this.scan.photos.data.sort((item1, item2) => {
-          return item1.name > item2 ? 1 : -1
+          return item1.name > item2.name ? 1 : -1
         })
       }
     }
