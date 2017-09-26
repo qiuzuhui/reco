@@ -21,22 +21,22 @@
                 </v-flex>
                 <v-flex xs12 sm4 offset-sm2>
                   <v-text-field
-                    label="联系人姓名"
-                  ></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm4 >
-                  <v-text-field
-                    label="手机号码"
-                  ></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm4 offset-sm2>
-                  <v-text-field
                     label="输入密码"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm4>
                   <v-text-field
                     label="确认密码"
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm4 offset-sm2>
+                  <v-text-field
+                    label="联系人姓名"
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm4 >
+                  <v-text-field
+                    label="手机号码"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm8 offset-sm2>
