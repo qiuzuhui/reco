@@ -1,8 +1,8 @@
 <template>
-  <v-app light class="white">
+  <v-app light class="blue">
     <v-container grid-list-md>
-      <div style="text-align: center">
-        <h4 style="width: 100%;">企业注册</h4>
+      <div style="text-align: center;padding-top: 30px;">
+        <h4 style="width: 100%;color: white;">企业注册</h4>
       </div>
       <v-stepper v-model="paneState">
         <v-stepper-header style="box-shadow: none;" class="pt-4">

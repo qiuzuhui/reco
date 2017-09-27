@@ -1,4 +1,4 @@
-import users from '../../api/mock/user'
+import api from '../../api'
 
 export default {
   namespaced: true,
@@ -13,24 +13,24 @@ export default {
   },
   actions: {
     async login ({commit}) {
-      let current = await users.current()
+      let current = await api.users.current()
       commit('setCurrent', current)
       return current
     },
 
     async current ({commit}) {
-      let current = await users.current()
+      let current = await api.users.current()
       commit('setCurrent', current)
       return current
     },
 
     logout ({commit}) {
       commit('setCurrent', null)
-      return users.logout()
+      return api.users.logout()
     },
 
     register ({commit}, user) {
-      return users.register(user)
+      return api.users.register(user)
     }
   },
   getters: {

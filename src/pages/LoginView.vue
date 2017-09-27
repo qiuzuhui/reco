@@ -5,7 +5,7 @@
         <v-layout row wrap align-center>
           <v-flex class="flex xs12 offset-sm3 sm6 md4 offset-md4 text-xs-center">
             <v-card class="white elevation-30">
-              <v-card-title class="headline" style="background: #3f51b5;color: white;line-height: 60px !important;">登陆
+              <v-card-title class="headline blue" style="color: white;line-height: 60px !important;">登陆
               </v-card-title>
               <v-card-text>
                 <v-text-field
@@ -15,7 +15,7 @@
                   placeholder="密码"
                   type="password"
                 ></v-text-field>
-                <v-btn style="background: #3f51b5;color:white;" large block>登录</v-btn>
+                <v-btn class="blue" style="color:white;" large block>登录</v-btn>
                 <v-layout row>
                   <v-flex xs6 text-xs-left>
                     <v-btn flat primary>忘记密码</v-btn>
