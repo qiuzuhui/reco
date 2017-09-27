@@ -60,9 +60,11 @@
       }
     },
     created () {
+      this.$store.dispatch('users/current').catch(() => {
+        location.href = 'login.html'
+      })
       this.$store.dispatch('scans/reFetch')
     },
-    methods: {
-    }
+    methods: {}
   }
 </script>

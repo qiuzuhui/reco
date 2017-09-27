@@ -12,7 +12,7 @@ export default new Vuex.Store({
   modules: {
     scans,
     notifications,
-    users: users
+    users
   },
   strict: debug,
   plugins: debug ? [logger()] : []

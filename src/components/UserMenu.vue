@@ -33,7 +33,11 @@
     },
     methods: {
       logout () {
-        this.$store.dispatch('users/logout')
+        this.$store.dispatch('users/logout').then(function () {
+          location.reload()
+        }).catch(function () {
+          location.reload()
+        })
       }
     }
   }

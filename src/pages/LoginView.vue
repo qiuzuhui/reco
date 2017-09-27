@@ -74,8 +74,8 @@
       login () {
         this.$store.dispatch('users/login', this.user).then(function () {
           location.href = 'index.html'
-        }).catch(() => {
-          // show msg
+        }).catch((err) => {
+          this.$store.commit('notifications/add', 'error', err.message)
         })
       },
       linkTo (href) {
@@ -84,3 +84,8 @@
     }
   }
 </script>
+<style scoped>
+  input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill{
+    background: none !important;
+  }
+</style>

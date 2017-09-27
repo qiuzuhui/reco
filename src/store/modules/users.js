@@ -23,7 +23,6 @@ export default {
     },
 
     logout ({commit}) {
-      commit('setCurrent', null)
       return api.users.logout()
     },
 
