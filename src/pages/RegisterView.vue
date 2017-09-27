@@ -4,101 +4,123 @@
       <div style="text-align: center">
         <h4 style="width: 100%;">企业注册</h4>
       </div>
-      <v-stepper v-model="e1">
+      <v-stepper v-model="paneState">
         <v-stepper-header style="box-shadow: none;" class="pt-4">
-          <v-stepper-step step="1" :complete="e1 > 1">填写信息</v-stepper-step>
+          <v-stepper-step step="1" :complete="paneState > 1">填写信息</v-stepper-step>
           <v-divider></v-divider>
           <v-stepper-step step="2">注册完成</v-stepper-step>
         </v-stepper-header>
         <v-stepper-content step="1">
-          <v-card flat>
-            <v-card-text>
-              <v-layout row wrap>
-                <v-flex xs12 sm8 offset-sm2>
-                  <v-text-field
-                    label="用户名"
-                    :rules="[rules.required]"
-                  ></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm4 offset-sm2>
-                  <v-text-field
-                    label="输入密码"
-                    type="password"
-                    :rules="[rules.required]"
-                  ></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm4>
-                  <v-text-field
-                    label="确认密码"
-                    type="password"
-                    :rules="[rules.required]"
-                  ></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm4 offset-sm2>
-                  <v-text-field
-                    label="联系人姓名"
-                    :rules="[rules.required]"
-                  ></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm4 >
-                  <v-text-field
-                    label="手机号码"
-                    :rules="[rules.required]"
-                  ></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm4 offset-sm2>
-                  <v-text-field
-                    label="企业名称"
-                    :rules="[rules.required]"
-                  ></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm4>
-                  <v-select
-                    label="行业"
-                    :rules="[rules.required]"
-                  ></v-select>
-                </v-flex>
-                <v-flex xs12 sm4 offset-sm2>
-                  <v-select
-                    label="省份"
-                    :rules="[rules.required]"
-                  ></v-select>
-                </v-flex>
-                <v-flex xs12 sm4>
-                  <v-select
-                    label="城市"
-                    :rules="[rules.required]"
-                  ></v-select>
-                </v-flex>
-                <v-flex xs12 sm4 offset-sm2>
-                  <v-text-field
-                    label="详细地址"
-                    :rules="[rules.required]"
-                  ></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm4>
-                  <v-text-field
-                    label="邮箱"
-                    :rules="[rules.required]"
-                  ></v-text-field>
-                </v-flex>
-              </v-layout>
-            </v-card-text>
-            <v-card-actions >
-              <v-layout>
-                <v-flex xs12 text-xs-center>
-                  <v-btn primary @click.native="e1 = 2">注册</v-btn>
-                </v-flex>
-              </v-layout>
-            </v-card-actions>
-          </v-card>
+          <v-form ref="dataForm">
+            <v-card flat>
+              <v-card-text>
+                <v-layout row wrap>
+                  <v-flex xs12 sm8 offset-sm2>
+                    <v-text-field
+                      label="用户名"
+                      v-model="user.memberName"
+                      :rules="[rules.required]"
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm4 offset-sm2>
+                    <v-text-field
+                      label="输入密码"
+                      v-model="user.password"
+                      type="password"
+                      :rules="[rules.required]"
+                      @change="$refs.verifyPwd.validate()"
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm4>
+                    <v-text-field
+                      ref="verifyPwd"
+                      label="确认密码"
+                      v-model="user.verifyPwd"
+                      type="password"
+                      :rules="[rules.required,verifyPwd]"
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm4 offset-sm2>
+                    <v-text-field
+                      label="联系人"
+                      v-model="user.contact"
+                      :rules="[rules.required]"
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm4>
+                    <v-text-field
+                      label="手机号码"
+                      v-model="user.phone"
+                      :rules="[rules.required,rules.phone]"
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm4 offset-sm2>
+                    <v-text-field
+                      label="企业名称"
+                      v-model="user.company"
+                      :rules="[rules.required]"
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm4>
+                    <v-select
+                      label="行业"
+                      v-model="user.industry"
+                      :items="industry"
+                      :rules="[rules.required]"
+                    ></v-select>
+                  </v-flex>
+                  <v-flex xs12 sm4 offset-sm2>
+                    <v-select
+                      label="省份"
+                      v-model="user.province"
+                      :rules="[rules.required]"
+                      :items="province"
+                      item-value="item_code"
+                      item-text="item_name"
+                    ></v-select>
+                  </v-flex>
+                  <v-flex xs12 sm4>
+                    <v-select
+                      label="城市"
+                      v-model="user.city"
+                      :rules="[rules.required]"
+                      :items="cities"
+                      item-value="item_code"
+                      item-text="item_name"
+                    ></v-select>
+                  </v-flex>
+                  <v-flex xs12 sm4 offset-sm2>
+                    <v-text-field
+                      label="详细地址"
+                      v-model="user.address"
+                      :rules="[rules.required]"
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm4>
+                    <v-text-field
+                      label="邮箱"
+                      v-model="user.email"
+                      :rules="[rules.required,rules.email]"
+                    ></v-text-field>
+                  </v-flex>
+                </v-layout>
+              </v-card-text>
+              <v-card-actions>
+                <v-layout>
+                  <v-flex xs12 text-xs-center>
+                    <v-btn primary @click.native="register()">注册</v-btn>
+                  </v-flex>
+                </v-layout>
+              </v-card-actions>
+            </v-card>
+          </v-form>
         </v-stepper-content>
         <v-stepper-content step="2">
-          <v-card >
+          <v-card>
             <v-card-text style="height:300px;">
 
             </v-card-text>
-            <v-card-actions >
+            <v-card-actions>
               <v-layout>
                 <v-flex xs12 text-xs-center>
                   <v-btn primary @click="linkTo('/index.html')">登录</v-btn>
@@ -116,17 +138,58 @@
 <script>
   import VSelect from '../../node_modules/vuetify/src/components/VSelect/VSelect'
   import rules from '../components/common/rules'
+  import CityData from '../store/CityData'
   export default {
     components: {VSelect},
     data () {
       return {
-        e1: 0,
-        rules: rules
+        paneState: 0,
+        rules: rules,
+        verifyPwd: (val) => {
+          return val === this.user.password || '两次输入的密码不一致'
+        },
+        user: {
+          memberName: '',
+          phone: '',
+          contact: '',
+          company: '',
+          province: '',
+          city: '',
+          industry: '',
+          password: '',
+          verifyPwd: '',
+          address: '',
+          email: ''
+        }
       }
     },
     methods: {
       linkTo (href) {
         location.href = href
+      },
+      register () {
+        if (this.$refs.dataForm.validate()) {
+          this.paneState = 2
+        }
+      }
+    },
+    computed: {
+      province () {
+        return CityData.filter((item) => {
+          return parseInt(item.item_code) % 10000 === 0
+        })
+      },
+      cities () {
+        return CityData.filter((item) => {
+          return parseInt(item.item_code) - this.user.province > 0 && parseInt(item.item_code) - this.user.province < 10000
+        })
+      },
+      industry () {
+        return [
+          '酒店',
+          '景点',
+          'IT'
+        ]
       }
     }
   }

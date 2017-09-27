@@ -9,5 +9,8 @@ export default {
   },
   number: (value) => {
     return /^\d*$/.test(value) || '请输入数字'
+  },
+  phone: (value) => {
+    return /^\d{11}$/.test(value) || '请输入正确的手机号码'
   }
 }
