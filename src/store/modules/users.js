@@ -12,10 +12,8 @@ export default {
     }
   },
   actions: {
-    async login ({commit}) {
-      let current = await api.users.current()
-      commit('setCurrent', current)
-      return current
+    login ({commit}, user) {
+      return api.users.login(user)
     },
 
     async current ({commit}) {
