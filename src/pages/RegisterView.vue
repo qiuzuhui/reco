@@ -108,7 +108,14 @@
               <v-card-actions>
                 <v-layout>
                   <v-flex xs12 text-xs-center>
-                    <v-btn primary @click.native="register()">注册</v-btn>
+                    <v-btn
+                      :loading="registering"
+                      @click.native.stop="register()"
+                      :disabled="registering"
+                      primary
+                    >
+                      注册
+                    </v-btn>
                   </v-flex>
                 </v-layout>
               </v-card-actions>
@@ -148,6 +155,7 @@
         verifyPwd: (val) => {
           return val === this.user.password || '两次输入的密码不一致'
         },
+        registering: false,
         user: {
           memberName: '',
           phone: '',
@@ -169,7 +177,13 @@
       },
       register () {
         if (this.$refs.dataForm.validate()) {
-          this.paneState = 2
+          this.registering = true
+          this.$store.dispatch('users/register', this.user).then(() => {
+            this.paneState = 2
+            this.registering = false
+          }).catch(() => {
+            this.registering = false
+          })
         }
       }
     },

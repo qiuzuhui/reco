@@ -5,4 +5,10 @@ let data = [{
   password: '123'
 }]
 
-export default new Memory({data: data})
+let users = new Memory({data: data})
+
+users.register = function (user) {
+  return this.add(user)
+}
+
+export default users

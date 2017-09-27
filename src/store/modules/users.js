@@ -24,8 +24,13 @@ export default {
       return current
     },
 
-    async logout ({commit}) {
+    logout ({commit}) {
       commit('setCurrent', null)
+      return users.logout()
+    },
+
+    register ({commit}, user) {
+      return users.register(user)
     }
   },
   getters: {
