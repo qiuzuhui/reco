@@ -17,56 +17,69 @@
                 <v-flex xs12 sm8 offset-sm2>
                   <v-text-field
                     label="用户名"
+                    :rules="[rules.required]"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm4 offset-sm2>
                   <v-text-field
                     label="输入密码"
+                    type="password"
+                    :rules="[rules.required]"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm4>
                   <v-text-field
                     label="确认密码"
+                    type="password"
+                    :rules="[rules.required]"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm4 offset-sm2>
                   <v-text-field
                     label="联系人姓名"
+                    :rules="[rules.required]"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm4 >
                   <v-text-field
                     label="手机号码"
+                    :rules="[rules.required]"
                   ></v-text-field>
                 </v-flex>
-                <v-flex xs12 sm8 offset-sm2>
+                <v-flex xs12 sm4 offset-sm2>
                   <v-text-field
                     label="企业名称"
+                    :rules="[rules.required]"
                   ></v-text-field>
                 </v-flex>
-                <v-flex xs12 sm8 offset-sm2>
+                <v-flex xs12 sm4>
                   <v-select
                     label="行业"
+                    :rules="[rules.required]"
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 sm4 offset-sm2>
                   <v-select
                     label="省份"
+                    :rules="[rules.required]"
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 sm4>
                   <v-select
                     label="城市"
+                    :rules="[rules.required]"
                   ></v-select>
                 </v-flex>
-                <v-flex xs12 sm8 offset-sm2>
+                <v-flex xs12 sm4 offset-sm2>
                   <v-text-field
                     label="详细地址"
+                    :rules="[rules.required]"
                   ></v-text-field>
                 </v-flex>
-                <v-flex xs12 sm8 offset-sm2>
+                <v-flex xs12 sm4>
                   <v-text-field
                     label="邮箱"
+                    :rules="[rules.required]"
                   ></v-text-field>
                 </v-flex>
               </v-layout>
@@ -88,7 +101,7 @@
             <v-card-actions >
               <v-layout>
                 <v-flex xs12 text-xs-center>
-                  <v-btn primary >完成</v-btn>
+                  <v-btn primary @click="linkTo('/index.html')">登录</v-btn>
                 </v-flex>
               </v-layout>
             </v-card-actions>
@@ -102,11 +115,18 @@
 
 <script>
   import VSelect from '../../node_modules/vuetify/src/components/VSelect/VSelect'
+  import rules from '../components/common/rules'
   export default {
     components: {VSelect},
     data () {
       return {
-        e1: 0
+        e1: 0,
+        rules: rules
+      }
+    },
+    methods: {
+      linkTo (href) {
+        location.href = href
       }
     }
   }
