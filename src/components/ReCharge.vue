@@ -75,6 +75,7 @@
           amount: 0,
           remark: ''
         }
+        this.balance = 0
       },
       refreshBalance () {
         this.data.memberId && api.balance.balance(this.data.memberId).then((amount) => {

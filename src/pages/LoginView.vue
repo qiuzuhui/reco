@@ -19,7 +19,12 @@
                   type="password"
                   :rules="[rules.required]"
                 ></v-text-field>
-                <v-btn class="blue" style="color:white;" large block @click="login()">登录</v-btn>
+                <div style="color: red;text-align: center;">{{errorMsg}}</div>
+                <v-btn class="blue" style="color:white;"
+                       :loading="loging"
+                       large block @click="login()">
+                  登录
+                </v-btn>
                 <v-layout row>
                   <v-flex xs6 text-xs-left>
                     <v-btn flat primary>忘记密码</v-btn>
@@ -64,6 +69,8 @@
     data () {
       return {
         rules,
+        errorMsg: '',
+        loging: false,
         user: {
           tel: '',
           password: ''
@@ -72,9 +79,13 @@
     },
     methods: {
       login () {
-        this.$store.dispatch('users/login', this.user).then(function () {
+        this.loging = true
+        this.$store.dispatch('users/login', this.user).then(() => {
+          this.loging = false
           location.href = 'index.html'
         }).catch((err) => {
+          this.loging = false
+          this.errorMsg = err.message || '登录失败'
           this.$store.commit('notifications/add', 'error', err.message)
         })
       },
