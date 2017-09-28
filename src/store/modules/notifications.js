@@ -8,14 +8,19 @@ export default {
     data: memory.data
   },
   mutations: {
-    add (type, msg) {
-      console.log(type, msg)
+    add (state, data) {
       memory.add({
-        type: type,
-        msg: msg
+        id: Date.now(),
+        type: data.type,
+        msg: data.msg
       })
+    },
+    remove (state, id) {
+      memory.remove(id)
     }
   },
   actions: {},
-  getters: {}
+  getters: {
+    all: (state) => state.data
+  }
 }

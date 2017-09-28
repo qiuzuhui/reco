@@ -81,6 +81,11 @@
       linkTo (href) {
         location.href = href
       }
+    },
+    created () {
+      this.$store.dispatch('users/current').then(() => {
+        location.href = 'index.html'
+      })
     }
   }
 </script>

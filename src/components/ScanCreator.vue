@@ -143,7 +143,7 @@
       removeFile (item) {
         this.scan.photos.remove(item.name)
       },
-      async addFiles () {
+      addFiles () {
         [].forEach.call(this.$refs.uploadFiles.files, (file) => {
           let item = {
             name: file.name,
