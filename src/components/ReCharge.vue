@@ -22,10 +22,16 @@
             item-text="label"
             :rules="[rules.required]"
           ></v-select>
-          <v-text-field label="当前余额" v-model="balance" readonly></v-text-field>
+          <v-text-field
+            label="当前余额"
+            v-model="balance"
+            readonly
+            suffix="元"
+          ></v-text-field>
           <v-text-field
             v-model="data.amount" label="金额"
             :rules="[rules.required,rules.number]"
+            suffix="元"
           ></v-text-field>
           <v-text-field v-model="data.remark" label="备注"></v-text-field>
           <v-btn :loading="loading" @click.native.stop="charge()" :disabled="loading" primary>
@@ -71,12 +77,12 @@
         }
       },
       refreshBalance () {
-        api.balance.balance(this.data.memberId).then((amount) => {
-          this.data.balance = amount
+        this.data.memberId && api.balance.balance(this.data.memberId).then((amount) => {
+          this.balance = amount
         })
       },
       charge () {
-        if (this.dataForm.validate()) {
+        if (this.$refs.dataForm.validate()) {
           this.loading = true
           api.balance.recharge(this.data).then(() => {
             this.loading = false
