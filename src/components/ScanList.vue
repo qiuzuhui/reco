@@ -8,14 +8,14 @@
           </div>
         </v-flex>
         <v-flex xs12 sm6 md4 lg3>
-          <div class="title-btn">
-            <v-btn flat primary>全部</v-btn>
+          <div class="title-btn" @click.stop="filterStatus = '0'" >
+            <v-btn flat primary :outline="filterStatus == '0'">全部</v-btn>
           </div>
-          <div class="title-btn">
-            <v-btn flat primary>已完成</v-btn>
+          <div class="title-btn" @click.stop="filterStatus = '1'">
+            <v-btn flat primary :outline="filterStatus == '1'">已完成</v-btn>
           </div>
-          <div class="title-btn">
-            <v-btn flat primary>处理中</v-btn>
+          <div class="title-btn" @click.stop="filterStatus = '2'">
+            <v-btn flat primary :outline="filterStatus == '2'">处理中</v-btn>
           </div>
         </v-flex>
         <v-flex xs12 sm6 md4 lg3>
@@ -93,7 +93,6 @@
 
 <script>
   import { LetterCube } from 'vue-loading-spinner'
-  import { mapGetters } from 'vuex'
 
   export default {
     name: 'ScanList',
@@ -102,6 +101,7 @@
         previewing: false,
         removing: false,
         loadingPreview: false,
+        filterStatus: '0',
         previewUrl: '',
         fab: false
       }
@@ -135,9 +135,17 @@
       }
     },
     computed: {
-      ...mapGetters({
-        scans: 'scans/all'
-      })
+      scans () {
+        return this.$store.getters['scans/all'].filter((item) => {
+          if (this.filterStatus === '0') {
+            return true
+          } else if (this.filterStatus === '1') {
+            return item.status === '0' || item.status === '1'
+          } else {
+            return item.status === '2' || item.status === '3'
+          }
+        })
+      }
     }
   }
 </script>

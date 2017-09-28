@@ -13,11 +13,13 @@
       <v-layout row>
         <v-flex xs12 md4>
           <v-select
-            v-bind:items="['2D','3D']"
+            :items="scanTypes"
             label="照片类型"
-            item-value="text"
+            item-value="value"
+            item-text="label"
             v-model="scan.type"
             :rules="[rules.required]"
+            @input="onChangeScanType()"
           ></v-select>
         </v-flex>
       </v-layout>
@@ -25,6 +27,7 @@
         <v-flex xs12 md4>
           <v-text-field
             label="单点张数"
+            :disabled="scan.type == '1'"
             v-model="scan.number"
             :rules="[rules.required,rules.number]"
           ></v-text-field>
@@ -80,6 +83,8 @@
 </template>
 
 <script>
+  /* eslint-disable quotes */
+
   import rules from './common/rules'
   import Utils from './common/Utils'
   import Memory from '../api/Memory'
@@ -90,10 +95,14 @@
       return {
         creating: false,
         valid: false,
+        scanTypes: [
+          {label: '平面照片', value: '0'},
+          {label: '全景照片', value: '1'}
+        ],
         scan: {
           title: '',
-          type: '',
-          number: '',
+          type: '1',
+          number: 1,
           photos: new Memory({
             data: [],
             idProperty: 'name'
@@ -103,10 +112,26 @@
       }
     },
     methods: {
+      onChangeScanType () {
+        if (this.scan.type === 1) {
+          console.log(this.scan.type)
+          this.scan.number = 1
+        }
+      },
       createScan () {
         if (this.$refs.dataForm.validate()) {
           this.creating = true
-          this.$store.dispatch('scans/add', this.scan).then(() => {
+
+          let formData = new FormData()
+          formData.append("title", this.scan.title)
+          formData.append("number", this.scan.number)
+          this.scan.photos.data.forEach(function (f) {
+            formData.append("files", f.file)
+          })
+
+          this.$store.dispatch('scans/add', formData).then(() => {
+            this.creating = false
+          }).catch(() => {
             this.creating = false
           })
         }
@@ -122,7 +147,8 @@
         [].forEach.call(this.$refs.uploadFiles.files, (file) => {
           let item = {
             name: file.name,
-            dataUrl: ''
+            dataUrl: '',
+            file: file
           }
           this.scan.photos.add(item)
           Utils.readAsDataURL(file).then((dataUrl) => {

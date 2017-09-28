@@ -51,7 +51,10 @@
         drawer: true,
         fixed: false,
         navItems: [
-          {icon: 'bubble_chart', title: '场景处理', path: '/scans'}
+          {icon: 'bubble_chart', title: '场景处理', path: '/scans'},
+          {icon: 'attach_money', title: '充值/退款', path: '/scans'},
+          {icon: 'monochrome_photos', title: '2D处理', path: '/scans'}
+
         ],
         miniVariant: false,
         right: true,
