@@ -84,8 +84,8 @@
     }
   }
 </script>
-<style scoped>
-  input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill{
-    background: none !important;
+<style>
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
   }
 </style>
