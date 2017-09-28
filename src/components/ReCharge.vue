@@ -1,37 +1,41 @@
 <template>
-  <v-container grid-list-md>
-    <v-layout row wrap>
-      <v-flex xs12>
-        <h4>充值/退款</h4>
-      </v-flex>
-      <v-flex xs12 md6>
-        <v-select v-model="data.memberId"
-                  label="会员"
-                  :items="allUsers"
-                  item-text="memberName"
-                  item-value="id"
-                  @input="refreshBalance()"
-                  :rules="[rules.required]"
-        ></v-select>
-        <v-select
-          v-model="data.transType"
-          label="操作类型"
-          :items="transTypes"
-          item-value="value"
-          item-text="label"
-          :rules="[rules.required]"
-        ></v-select>
-        <v-text-field label="当前余额" v-model="balance" readonly></v-text-field>
-        <v-text-field
-          v-model="data.amount" label="金额"
-          :rules="[rules.required,rules.number]"
-        ></v-text-field>
-        <v-text-field v-model="data.remark" label="备注"></v-text-field>
-        <v-btn primary @click.native="charge()">确定</v-btn>
-        <v-btn @click.native="reset()">取消</v-btn>
-      </v-flex>
-    </v-layout>
-  </v-container>
+  <v-form ref="dataForm" v-model="valid">
+    <v-container grid-list-md>
+      <v-layout row wrap>
+        <v-flex xs12>
+          <h4>充值/退款</h4>
+        </v-flex>
+        <v-flex xs12 md6>
+          <v-select v-model="data.memberId"
+                    label="会员"
+                    :items="allUsers"
+                    item-text="memberName"
+                    item-value="id"
+                    @input="refreshBalance()"
+                    :rules="[rules.required]"
+          ></v-select>
+          <v-select
+            v-model="data.transType"
+            label="操作类型"
+            :items="transTypes"
+            item-value="value"
+            item-text="label"
+            :rules="[rules.required]"
+          ></v-select>
+          <v-text-field label="当前余额" v-model="balance" readonly></v-text-field>
+          <v-text-field
+            v-model="data.amount" label="金额"
+            :rules="[rules.required,rules.number]"
+          ></v-text-field>
+          <v-text-field v-model="data.remark" label="备注"></v-text-field>
+          <v-btn :loading="loading" @click.native.stop="charge()" :disabled="loading" primary>
+            确定
+          </v-btn>
+          <v-btn @click.native="reset()">取消</v-btn>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </v-form>
 </template>
 <script>
   import api from '../api'
@@ -41,8 +45,10 @@
   export default {
     data: function () {
       return {
+        valid: false,
         balance: 0,
         rules: rules,
+        loading: false,
         transTypes: [
           {label: '充值', value: '1'},
           {label: '退款', value: '2'}
@@ -65,7 +71,14 @@
         })
       },
       charge () {
-        api.balance.recharge()
+        if (this.dataForm.validate()) {
+          this.loading = true
+          api.balance.recharge(this.data).then(() => {
+            this.loading = false
+          }).catch(() => {
+            this.loading = false
+          })
+        }
       }
     },
     computed: {

@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-escape */
 export default {
   required: (value) => {
-    return !!value || '请输入'
+    return !(value === null || value === '') || '请输入'
   },
   email: (value) => {
     const pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
