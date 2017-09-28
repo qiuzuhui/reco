@@ -37,6 +37,14 @@ export default {
       }
       return resp.data.memberDto
     })
+  },
+  fetch () {
+    return Vue.http.get('member/getAllMember.do').then(function (resp) {
+      if (resp.data.error) {
+        throw resp.data.error
+      }
+      return resp.data.memberDtoList
+    })
   }
 
 }

@@ -9,6 +9,9 @@ export default {
   mutations: {
     setCurrent (state, current) {
       state.current = current
+    },
+    setData (state, data) {
+      state.data = data
     }
   },
   actions: {
@@ -29,9 +32,16 @@ export default {
 
     register ({commit}, user) {
       return api.users.register(user)
+    },
+
+    async fetch ({commit}) {
+      let users = await api.users.fetch()
+      commit('setData', users)
     }
+
   },
   getters: {
-    current: (state) => state.current
+    current: (state) => state.current,
+    all: (state) => state.data
   }
 }

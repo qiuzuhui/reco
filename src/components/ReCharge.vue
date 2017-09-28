@@ -5,26 +5,28 @@
         <h4>充值/退款</h4>
       </v-flex>
       <v-flex xs12 md6>
-        <v-select v-model="data.memberId" label="会员"></v-select>
-      </v-flex>
-      <v-flex md6 hidden-sm-and-down></v-flex>
-      <v-flex xs12 md6>
-        <v-select v-model="data.transType" label="操作类型"></v-select>
-      </v-flex>
-      <v-flex md6 hidden-sm-and-down></v-flex>
-      <v-flex xs12 md6>
+        <v-select v-model="data.memberId"
+                  label="会员"
+                  :items="allUsers"
+                  item-text="memberName"
+                  item-value="id"
+                  @input="refreshBalance()"
+                  :rules="[rules.required]"
+        ></v-select>
+        <v-select
+          v-model="data.transType"
+          label="操作类型"
+          :items="transTypes"
+          item-value="value"
+          item-text="label"
+          :rules="[rules.required]"
+        ></v-select>
         <v-text-field label="当前余额" v-model="balance" readonly></v-text-field>
-      </v-flex>
-      <v-flex md6 hidden-sm-and-down></v-flex>
-      <v-flex xs12 md6>
-        <v-text-field v-model="data.amount" label="金额"></v-text-field>
-      </v-flex>
-      <v-flex md6 hidden-sm-and-down></v-flex>
-      <v-flex xs12 md6>
+        <v-text-field
+          v-model="data.amount" label="金额"
+          :rules="[rules.required,rules.number]"
+        ></v-text-field>
         <v-text-field v-model="data.remark" label="备注"></v-text-field>
-      </v-flex>
-      <v-flex md6 hidden-sm-and-down></v-flex>
-      <v-flex xs12>
         <v-btn primary @click.native="charge()">确定</v-btn>
         <v-btn @click.native="reset()">取消</v-btn>
       </v-flex>
@@ -33,11 +35,18 @@
 </template>
 <script>
   import api from '../api'
+  import { mapGetters } from 'vuex'
+  import rules from './common/rules'
 
   export default {
     data: function () {
       return {
         balance: 0,
+        rules: rules,
+        transTypes: [
+          {label: '充值', value: '1'},
+          {label: '退款', value: '2'}
+        ],
         data: {
           memberId: '',
           transType: '1',
@@ -50,9 +59,22 @@
       reset () {
 
       },
+      refreshBalance () {
+        api.balance.balance(this.data.memberId).then((amount) => {
+          this.data.balance = amount
+        })
+      },
       charge () {
         api.balance.recharge()
       }
+    },
+    computed: {
+      ...mapGetters({
+        allUsers: 'users/all'
+      })
+    },
+    created () {
+      this.$store.dispatch('users/fetch')
     }
   }
 </script>
