@@ -31,7 +31,7 @@
           <v-btn :loading="loading" @click.native.stop="charge()" :disabled="loading" primary>
             确定
           </v-btn>
-          <v-btn @click.native="reset()">取消</v-btn>
+          <v-btn @click.native="reset()">重置</v-btn>
         </v-flex>
       </v-layout>
     </v-container>
@@ -63,7 +63,12 @@
     },
     methods: {
       reset () {
-
+        this.data = {
+          memberId: '',
+          transType: '1',
+          amount: 0,
+          remark: ''
+        }
       },
       refreshBalance () {
         api.balance.balance(this.data.memberId).then((amount) => {
