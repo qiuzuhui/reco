@@ -52,7 +52,7 @@
         fixed: false,
         navItems: [
           {icon: 'bubble_chart', title: '场景处理', path: '/scans'},
-          {icon: 'attach_money', title: '充值/退款', path: '/scans'},
+          {icon: 'attach_money', title: '充值/退款', path: '/admin/recharge'},
           {icon: 'monochrome_photos', title: '2D处理', path: '/scans'}
 
         ],

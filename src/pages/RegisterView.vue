@@ -156,7 +156,7 @@
     components: {VSelect},
     data () {
       return {
-        paneState: 2,
+        paneState: 1,
         rules: rules,
         verifyPwd: (val) => {
           return val === this.user.password || '两次输入的密码不一致'
