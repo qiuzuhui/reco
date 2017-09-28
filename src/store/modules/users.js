@@ -18,6 +18,7 @@ export default {
 
     async current ({commit}) {
       let current = await api.users.current()
+      current.balance = await api.balance.balance(current.id)
       commit('setCurrent', current)
       return current
     },
