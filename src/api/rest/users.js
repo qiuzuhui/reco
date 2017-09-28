@@ -29,6 +29,14 @@ export default {
       }
       return resp.data.memberDto
     })
+  },
+  register (user) {
+    return Vue.http.post('member/register.do', {memberDto: user}).then(function (resp) {
+      if (resp.data.error) {
+        throw resp.data.error
+      }
+      return resp.data.memberDto
+    })
   }
 
 }

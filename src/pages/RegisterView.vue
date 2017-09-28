@@ -35,7 +35,7 @@
                     <v-text-field
                       ref="verifyPwd"
                       label="确认密码"
-                      v-model="user.verifyPwd"
+                      v-model="temp.verifyPwd"
                       type="password"
                       :rules="[rules.required,verifyPwd]"
                     ></v-text-field>
@@ -50,7 +50,7 @@
                   <v-flex xs12 sm4>
                     <v-text-field
                       label="手机号码"
-                      v-model="user.phone"
+                      v-model="user.tel"
                       :rules="[rules.required,rules.phone]"
                     ></v-text-field>
                   </v-flex>
@@ -92,14 +92,14 @@
                   <v-flex xs12 sm4 offset-sm2>
                     <v-text-field
                       label="详细地址"
-                      v-model="user.address"
+                      v-model="user.adress"
                       :rules="[rules.required]"
                     ></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm4>
                     <v-text-field
                       label="邮箱"
-                      v-model="user.email"
+                      v-model="user.mail"
                       :rules="[rules.required,rules.email]"
                     ></v-text-field>
                   </v-flex>
@@ -124,8 +124,14 @@
         </v-stepper-content>
         <v-stepper-content step="2">
           <v-card>
-            <v-card-text style="height:300px;">
-
+            <v-card-text style="text-align:center;height:150px;">
+              <v-avatar style="display: inline-block;vertical-align: top;" size="60px">
+                <v-icon class="green white--text" style="font-size: 59px;">check_circle</v-icon>
+              </v-avatar>
+              <div style="display: inline-block;padding: 0 10px;">
+                <h4 style="margin: 0;">恭喜您，注册成功!</h4>
+                <div style="color: lightgray;text-align: left;">请牢记您设置的密码</div>
+              </div>
             </v-card-text>
             <v-card-actions>
               <v-layout>
@@ -150,24 +156,26 @@
     components: {VSelect},
     data () {
       return {
-        paneState: 0,
+        paneState: 2,
         rules: rules,
         verifyPwd: (val) => {
           return val === this.user.password || '两次输入的密码不一致'
         },
         registering: false,
+        temp: {
+          verifyPwd: ''
+        },
         user: {
           memberName: '',
-          phone: '',
+          tel: '',
           contact: '',
           company: '',
           province: '',
           city: '',
           industry: '',
           password: '',
-          verifyPwd: '',
-          address: '',
-          email: ''
+          adress: '',
+          mail: ''
         }
       }
     },
@@ -181,8 +189,9 @@
           this.$store.dispatch('users/register', this.user).then(() => {
             this.paneState = 2
             this.registering = false
-          }).catch(() => {
+          }).catch((err) => {
             this.registering = false
+            this.$store.commit('notifications/add', 'error', err.message)
           })
         }
       }
