@@ -2,7 +2,7 @@
   <v-layout row wrap>
     <v-flex xs12>
       <v-layout row wrap>
-        <v-flex xs12 sm6 md4 lg6>
+        <v-flex xs12 sm6 md4 lg6 hidden-sm-and-down>
           <div class="title-btn">
             <v-btn primary @click.native.stop="$router.push('/scans/new')">新建</v-btn>
           </div>
