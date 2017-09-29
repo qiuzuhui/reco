@@ -11,11 +11,11 @@
           <div class="title-btn" @click.stop="filterStatus = '0'" >
             <v-btn flat primary :outline="filterStatus == '0'">全部</v-btn>
           </div>
-          <div class="title-btn" @click.stop="filterStatus = '1'">
-            <v-btn flat primary :outline="filterStatus == '1'">已完成</v-btn>
-          </div>
           <div class="title-btn" @click.stop="filterStatus = '2'">
-            <v-btn flat primary :outline="filterStatus == '2'">处理中</v-btn>
+            <v-btn flat primary :outline="filterStatus == '2'">已完成</v-btn>
+          </div>
+          <div class="title-btn" @click.stop="filterStatus = '1'">
+            <v-btn flat primary :outline="filterStatus == '1'">处理中</v-btn>
           </div>
         </v-flex>
         <v-flex xs12 sm6 md4 lg3>
