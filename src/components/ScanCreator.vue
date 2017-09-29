@@ -131,6 +131,7 @@
 
           this.$store.dispatch('scans/add', formData).then(() => {
             this.creating = false
+            this.$router.go(-1)
           }).catch(() => {
             this.creating = false
           })
