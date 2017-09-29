@@ -10,13 +10,13 @@ export default {
       if (resp.data.error) {
         throw resp.data.error
       }
-      return resp.data.processDtoList
+      return resp.data.orderDtoList
     }).then(function (items) {
       items = items || []
       return items.map((item) => {
         return {
           'id': item.id,
-          'reviewId': item.benacoId,
+          'reviewId': item.benacoScanId,
           'title': item.description,
           'thumbnail': '/static/demo-data/paris.jpeg', // TODO
           'status': item.status,
