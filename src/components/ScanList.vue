@@ -8,7 +8,7 @@
           </div>
         </v-flex>
         <v-flex xs12 sm6 md4 lg3>
-          <div class="title-btn" @click.stop="filterStatus = '0'" >
+          <div class="title-btn" @click.stop="filterStatus = '0'">
             <v-btn flat primary :outline="filterStatus == '0'">全部</v-btn>
           </div>
           <div class="title-btn" @click.stop="filterStatus = '2'">
@@ -39,7 +39,7 @@
           <v-btn icon @click.native.stop="preview(scan)">
             <v-icon>fullscreen</v-icon>
           </v-btn>
-          <v-btn icon>
+          <v-btn icon @click.native.stop="openShareDialog(scan)">
             <v-icon>share</v-icon>
           </v-btn>
           <v-btn icon @click.native.stop="confirmRemove(scan)">
@@ -52,7 +52,7 @@
       <div style="background: white;height: 100%;overflow: hidden;">
         <v-toolbar dark class="indigo" fixed>
           <v-spacer></v-spacer>
-          <v-btn icon>
+          <v-btn icon @click.native.stop="openShareDialog(previewScan)">
             <v-icon>share</v-icon>
           </v-btn>
           <v-btn icon @click.native="stopPreview()" dark>
@@ -74,7 +74,7 @@
         </main>
       </div>
     </v-dialog>
-    <v-dialog v-model="removing">
+    <v-dialog v-model="removing" style="z-index: 9999;">
       <v-card>
         <v-card-title class="headline">是否确定删除此场景?</v-card-title>
         <v-card-text>
@@ -87,13 +87,20 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-
+    <v-dialog v-model="shareing" ref="shareDialog">
+      <v-card @click.stop="openShareLink()" style="cursor: pointer;">
+        <v-card-text>
+          <qr-code :text="shareLink"></qr-code>
+        </v-card-text>
+        <v-card-actions style="text-align: center;display: block;">扫描二维码，分享至朋友圈</v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-layout>
 </template>
 
 <script>
   import { LetterCube } from 'vue-loading-spinner'
-
+  import QRCode from 'vue-qrcode-component'
   export default {
     name: 'ScanList',
     data () {
@@ -101,23 +108,37 @@
         previewing: false,
         removing: false,
         loadingPreview: false,
+        shareing: false,
+        shareLink: '',
         filterStatus: '0',
         previewUrl: '',
         fab: false
       }
     },
     components: {
-      LetterCube
+      LetterCube,
+      'qr-code': QRCode
     },
     methods: {
       preview (scan) {
         this.previewing = true
         this.loadingPreview = true
+        this.previewScan = scan
         this.previewUrl = 'https://beta.benaco.com/embed/' + scan.reviewId
+      },
+      openShareDialog (scan) {
+        this.$refs.shareDialog.$refs.content.style.zIndex = 999
+        this.shareing = true
+        this.shareLink = 'http://' + location.host + '/static/view.html?id=' + scan.reviewId
+      },
+      closeShareDialog () {
+        this.shareing = false
+        this.shareLink = ''
       },
       stopPreview () {
         this.previewing = false
         this.previewUrl = ''
+        this.previewScan = null
         this.loadingPreview = false
       },
       confirmRemove (scan) {
@@ -132,7 +153,13 @@
         this.$store.dispatch('scans/remove', this.removeingScanId).then(() => {
           this.closeDeleteDialog()
         })
+      },
+      copyShareLink () {
+      },
+      openShareLink () {
+        window.open(this.shareLink)
       }
+
     },
     computed: {
       scans () {
