@@ -88,8 +88,9 @@
       </v-card>
     </v-dialog>
     <v-dialog v-model="shareing" ref="shareDialog">
-      <v-card @click.stop="openShareLink()" style="cursor: pointer;">
-        <v-card-text>
+      <v-card>
+        <v-icon style="float: right;cursor: pointer;" @click.stop="closeShareDialog()">close</v-icon>
+        <v-card-text @click.stop="openShareLink()" style="cursor: pointer;">
           <qr-code :text="shareLink"></qr-code>
         </v-card-text>
         <v-card-actions style="text-align: center;display: block;">扫描二维码，分享至朋友圈</v-card-actions>
