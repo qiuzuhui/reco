@@ -46,5 +46,4 @@ export default {
       return resp.data.memberDtoList
     })
   }
-
 }

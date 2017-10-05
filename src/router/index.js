@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import ScanList from '@/components/ScanList'
 import ScanCreator from '@/components/ScanCreator'
 import ReCharge from '@/components/ReCharge'
+import PanoramaUploader from '@/components/PanoramaUploader'
 
 Vue.use(Router)
 
@@ -26,6 +27,11 @@ export default new Router({
       path: '/admin/recharge',
       name: 'ReCharge',
       component: ReCharge
+    },
+    {
+      path: '/admin/panorama',
+      name: 'PanoramaUploader',
+      component: PanoramaUploader
     }
   ]
 })

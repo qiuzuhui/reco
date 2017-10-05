@@ -28,6 +28,7 @@
           v-for="(item, i) in navItems"
           :key="i"
           @click.stop="$router.push(item.path)"
+          v-show="item.permit"
         >
           <v-list-tile-action>
             <v-icon light v-html="item.icon"></v-icon>
@@ -62,15 +63,15 @@
   export default {
     components: {VAlert, UserMenu},
     data () {
+      console.log('data')
       return {
         clipped: true,
         drawer: true,
         fixed: false,
         navItems: [
-          {icon: 'bubble_chart', title: '场景处理', path: '/scans'},
-          {icon: 'attach_money', title: '充值/退款', path: '/admin/recharge'},
-          {icon: 'monochrome_photos', title: '2D处理', path: '/scans'}
-
+          {icon: 'bubble_chart', title: '场景处理', path: '/scans', permit: true},
+          {icon: 'attach_money', title: '充值/退款', path: '/admin/recharge', permit: true},
+          {icon: 'monochrome_photos', title: '2D处理', path: '/panorama', permit: true}
         ],
         miniVariant: false,
         right: true,
@@ -79,7 +80,31 @@
       }
     },
     created () {
-      this.$store.dispatch('users/current').catch(() => {
+      console.log('created')
+      this.$store.dispatch('users/current').then(() => {
+        let checkPermission = this.$store.getters['users/checkPermission']
+        this.navItems = [
+          {
+            icon: 'bubble_chart',
+            title: '场景处理',
+            path: '/scans',
+            permit: true
+          },
+          {
+            icon: 'attach_money',
+            title: '充值/退款',
+            path: '/admin/recharge',
+            permit: checkPermission('/menu/admin/recharge')
+          },
+          {
+            icon: 'monochrome_photos',
+            title: '2D处理',
+            path: '/admin/panorama',
+            permit: checkPermission('/menu/admin/panorama')
+          }
+        ]
+      }).catch((err) => {
+        console.log(err)
         location.href = 'login.html'
       })
       this.$store.dispatch('scans/reFetch')
@@ -97,7 +122,7 @@
   }
 </script>
 
-<style >
+<style>
   .alert-list-enter-active, .alert-list-leave-active {
     transition: all 1s;
   }
@@ -118,9 +143,9 @@
     width: 80%;
     left: 10%;
   }
-  .alert-list .alert .alert__dismissible>.icon,
-  .alert-list .alert .alert__icon.icon
-  {
+
+  .alert-list .alert .alert__dismissible > .icon,
+  .alert-list .alert .alert__icon.icon {
     color: white;
   }
 </style>

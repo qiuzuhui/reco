@@ -38,10 +38,17 @@ export default {
       let users = await api.users.fetch()
       commit('setData', users)
     }
-
   },
   getters: {
     current: (state) => state.current,
-    all: (state) => state.data
+    all: (state) => state.data,
+    checkPermission: (state) => {
+      return (key) => {
+        // TODO
+        if (state.current.memberName === 'unreAdmin') {
+          return true
+        }
+      }
+    }
   }
 }
