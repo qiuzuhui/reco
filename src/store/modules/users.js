@@ -46,7 +46,9 @@ export default {
       return (key) => {
         // TODO
         if (state.current.memberName === 'unreAdmin') {
-          return true
+          return ['/menu/admin/recharge', '/menu/admin/panorama'].indexOf(key) >= 0
+        } else {
+          return ['/menu/user/scans'].indexOf(key) >= 0
         }
       }
     }

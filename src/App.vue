@@ -69,9 +69,6 @@
         drawer: true,
         fixed: false,
         navItems: [
-          {icon: 'bubble_chart', title: '场景处理', path: '/scans', permit: true},
-          {icon: 'attach_money', title: '充值/退款', path: '/admin/recharge', permit: true},
-          {icon: 'monochrome_photos', title: '2D处理', path: '/panorama', permit: true}
         ],
         miniVariant: false,
         right: true,
@@ -80,33 +77,27 @@
       }
     },
     created () {
-      console.log('created')
-      this.$store.dispatch('users/current').then(() => {
-        let checkPermission = this.$store.getters['users/checkPermission']
-        this.navItems = [
-          {
-            icon: 'bubble_chart',
-            title: '场景处理',
-            path: '/scans',
-            permit: true
-          },
-          {
-            icon: 'attach_money',
-            title: '充值/退款',
-            path: '/admin/recharge',
-            permit: checkPermission('/menu/admin/recharge')
-          },
-          {
-            icon: 'monochrome_photos',
-            title: '2D处理',
-            path: '/admin/panorama',
-            permit: checkPermission('/menu/admin/panorama')
-          }
-        ]
-      }).catch((err) => {
-        console.log(err)
-        location.href = 'login.html'
-      })
+      let checkPermission = this.$store.getters['users/checkPermission']
+      this.navItems = [
+        {
+          icon: 'bubble_chart',
+          title: '场景处理',
+          path: '/scans',
+          permit: checkPermission('/menu/user/scans')
+        },
+        {
+          icon: 'attach_money',
+          title: '充值/退款',
+          path: '/admin/recharge',
+          permit: checkPermission('/menu/admin/recharge')
+        },
+        {
+          icon: 'monochrome_photos',
+          title: '2D处理',
+          path: '/admin/panorama',
+          permit: checkPermission('/menu/admin/panorama')
+        }
+      ]
       this.$store.dispatch('scans/reFetch')
     },
     methods: {

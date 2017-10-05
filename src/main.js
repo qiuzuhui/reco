@@ -8,17 +8,28 @@ import './stylus/main.styl'
 import App from './App'
 import router from './router'
 import store from './store'
+import Router from 'vue-router'
 
 Vue.use(Vuetify)
 Vue.use(vuex)
 Vue.use(VueResource)
 Vue.config.productionTip = false
 
-/* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  store,
-  router,
-  template: '<App/>',
-  components: {App}
+store.dispatch('users/current').then((current) => {
+  console.log(router)
+  router.routes.push({
+    path: '/',
+    redirect: store.getters['users/checkPermission']('/menu/user/scans') ? '/scans' : '/admin/recharge'
+  })
+  /* eslint-disable no-new */
+  new Vue({
+    el: '#app',
+    store,
+    router: new Router(router),
+    template: '<App/>',
+    components: {App}
+  })
+}).catch(() => {
+  location.href = 'login.html'
 })
+

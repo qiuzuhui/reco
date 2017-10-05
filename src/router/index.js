@@ -7,12 +7,8 @@ import PanoramaUploader from '@/components/PanoramaUploader'
 
 Vue.use(Router)
 
-export default new Router({
+export default {
   routes: [
-    {
-      path: '/',
-      redirect: '/scans'
-    },
     {
       path: '/scans',
       name: 'ScanList',
@@ -34,4 +30,4 @@ export default new Router({
       component: PanoramaUploader
     }
   ]
-})
+}
