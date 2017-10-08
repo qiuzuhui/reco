@@ -49,7 +49,7 @@
         api.scans.addPhotos(formData).then(() => {
           this.loading = false
           this.$store.commit('notifications/add', {
-            type: 'info',
+            type: 'success',
             msg: '上传成功'
           })
           this.data = {

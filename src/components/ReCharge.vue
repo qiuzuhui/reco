@@ -89,7 +89,7 @@
           api.balance.recharge(this.data).then(() => {
             this.loading = false
             this.$store.commit('notifications/add', {
-              type: 'info',
+              type: 'success',
               msg: '操作成功'
             })
             this.refreshBalance()
