@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
+import _ from 'lodash'
+
 Vue.use(VueResource)
 
 Vue.http.options.root = '/photo-web'
@@ -18,6 +20,7 @@ export default {
     })
   },
   recharge (data) {
+    data = _.clone(data)
     if (data.transType === '2') {
       data.amount *= -1
     }

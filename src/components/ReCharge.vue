@@ -84,6 +84,7 @@
       },
       charge () {
         if (this.$refs.dataForm.validate()) {
+          console.log(this.$refs.dataForm.validate())
           this.loading = true
           api.balance.recharge(this.data).then(() => {
             this.loading = false
