@@ -32,5 +32,13 @@ export default {
       }
       return data.panoramaEngineDto
     })
+  },
+  remove (id) {
+    return Vue.http.post('order/removeOrderById.do', {orderDto: {id}}).then(function (data) {
+      if (data.error) {
+        throw data.error
+      }
+      return data.orderDto
+    })
   }
 }

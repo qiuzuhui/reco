@@ -16,7 +16,6 @@ Vue.use(VueResource)
 Vue.config.productionTip = false
 
 store.dispatch('users/current').then((current) => {
-  console.log(router)
   router.routes.push({
     path: '/',
     redirect: store.getters['users/checkPermission']('/menu/user/scans') ? '/scans' : '/admin/recharge'
