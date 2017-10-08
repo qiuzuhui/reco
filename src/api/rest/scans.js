@@ -33,6 +33,14 @@ export default {
       return data.panoramaEngineDto
     })
   },
+  addPhotos (data) {
+    return Vue.http.post('engine/addStitchedPhotos.do', data).then(function (data) {
+      if (data.error) {
+        throw data.error
+      }
+      return data.panoramaEngineDto
+    })
+  },
   remove (id) {
     return Vue.http.post('order/removeOrderById.do', {orderDto: {id}}).then(function (data) {
       if (data.error) {

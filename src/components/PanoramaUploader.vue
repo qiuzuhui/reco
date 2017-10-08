@@ -11,8 +11,8 @@
                     :items="allScans"
                     item-text="label"
                     item-value="id"
-
           ></v-select>
+          <image-picker v-model="data.photos"></image-picker>
           <v-btn :loading="loading" @click.native.stop="upload()" :disabled="loading" primary>
             上传
           </v-btn>
@@ -23,20 +23,44 @@
 </template>
 <script>
   import _ from 'lodash'
+  import ImagePicker from './ImagePicker'
+  import api from '../api'
+
   export default {
     data () {
       return {
         valid: false,
         loading: false,
         data: {
-          orderId: ''
+          orderId: '',
+          photos: []
         }
       }
     },
     methods: {
       upload () {
         this.loading = true
+        // TODO
+        let formData = new FormData()
+        formData.append('orderId', this.data.orderId)
+        this.data.photos.forEach(function (f) {
+          formData.append('files', f.file)
+        })
+        api.scans.addPhotos(formData).then(() => {
+          this.loading = false
+          this.$store.commit('notifications/add', 'info', '上传成功')
+          this.data = {
+            orderId: '',
+            photos: []
+          }
+        }).catch(() => {
+          this.loading = false
+          this.$store.commit('notifications/add', 'error', '上传失败')
+        })
       }
+    },
+    components: {
+      ImagePicker
     },
     computed: {
       allScans () {
