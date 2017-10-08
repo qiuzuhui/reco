@@ -87,8 +87,17 @@
           this.loading = true
           api.balance.recharge(this.data).then(() => {
             this.loading = false
-          }).catch(() => {
+            this.$store.commit('notifications/add', {
+              type: 'info',
+              msg: '操作成功'
+            })
+            this.refreshBalance()
+          }).catch((err) => {
             this.loading = false
+            this.$store.commit('notifications/add', {
+              type: 'error',
+              msg: '操作失败: ' + err.message
+            })
           })
         }
       }
