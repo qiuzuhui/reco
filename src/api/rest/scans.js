@@ -26,27 +26,27 @@ export default {
     })
   },
   add (data) {
-    return Vue.http.post('engine/addPhotos.do', data).then(function (data) {
-      if (data.error) {
-        throw data.error
+    return Vue.http.post('engine/addPhotos.do', data).then(function (resp) {
+      if (resp.data.error) {
+        throw resp.data.error
       }
-      return data.panoramaEngineDto
+      return resp.data.panoramaEngineDto
     })
   },
   addPhotos (data) {
-    return Vue.http.post('engine/addStitchedPhotos.do', data).then(function (data) {
-      if (data.error) {
-        throw data.error
+    return Vue.http.post('engine/addStitchedPhotos.do', data).then(function (resp) {
+      if (resp.data.error) {
+        throw resp.data.error
       }
-      return data.panoramaEngineDto
+      return resp.data.panoramaEngineDto
     })
   },
   remove (id) {
-    return Vue.http.post('order/removeOrderById.do', {orderDto: {id}}).then(function (data) {
-      if (data.error) {
-        throw data.error
+    return Vue.http.post('order/removeOrderById.do', {orderDto: {id}}).then(function (resp) {
+      if (resp.data.error) {
+        throw resp.data.error
       }
-      return data.orderDto
+      return resp.data.orderDto
     })
   }
 }

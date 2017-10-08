@@ -191,7 +191,10 @@
             this.registering = false
           }).catch((err) => {
             this.registering = false
-            this.$store.commit('notifications/add', 'error', err.message)
+            this.$store.commit('notifications/add', {
+              type: 'error',
+              msg: err.message
+            })
           })
         }
       }

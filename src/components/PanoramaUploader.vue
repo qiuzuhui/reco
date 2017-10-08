@@ -48,14 +48,20 @@
         })
         api.scans.addPhotos(formData).then(() => {
           this.loading = false
-          this.$store.commit('notifications/add', 'info', '上传成功')
+          this.$store.commit('notifications/add', {
+            type: 'info',
+            msg: '上传成功'
+          })
           this.data = {
             orderId: '',
             photos: []
           }
-        }).catch(() => {
+        }).catch((err) => {
           this.loading = false
-          this.$store.commit('notifications/add', 'error', '上传失败')
+          this.$store.commit('notifications/add', {
+            type: 'error',
+            msg: '上传失败：' + err.message
+          })
         })
       }
     },

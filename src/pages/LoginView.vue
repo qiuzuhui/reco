@@ -86,7 +86,10 @@
         }).catch((err) => {
           this.loging = false
           this.errorMsg = err.message || '登录失败'
-          this.$store.commit('notifications/add', 'error', err.message)
+          this.$store.commit('notifications/add', {
+            type: 'error',
+            msg: err.message
+          })
         })
       },
       linkTo (href) {

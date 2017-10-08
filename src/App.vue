@@ -114,6 +114,9 @@
 </script>
 
 <style>
+  .alert{
+    border: none !important;
+  }
   .alert-list-enter-active, .alert-list-leave-active {
     transition: all 1s;
   }
