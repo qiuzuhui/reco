@@ -31,9 +31,9 @@
     </v-flex>
     <v-flex xs12 sm6 md4 lg3 class="pa-1" v-for="(scan,index) in scans" :key="index">
       <v-card class="scan-card">
-        <v-card-media :src="scan.thumbnail" height="200px" @click.native.stop="preview(scan.reviewId)">
-          <circle9 style="margin: auto;" size="60px" v-show="scan.status == '0' || scan.status == '1' " ></circle9>
-          <v-icon x-large style="color:red;margin: auto;"  v-show="scan.status == '3'">info</v-icon>
+        <v-card-media :src="scan.thumbnail" height="200px" @click.native.stop="preview(scan)">
+          <circle9 style="margin: auto;" size="60px" v-show="scan.status == '0' || scan.status == '1' "></circle9>
+          <v-icon x-large style="color:red;margin: auto;" v-show="scan.status == '3'">info</v-icon>
         </v-card-media>
         <v-card-actions>
           <span>{{scan.title}}</span>
@@ -125,6 +125,9 @@
     },
     methods: {
       preview (scan) {
+        if (scan.status !== '2') {
+          return
+        }
         this.previewing = true
         this.loadingPreview = true
         this.previewScan = scan
