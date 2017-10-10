@@ -10,12 +10,12 @@ export default {
       if (resp.data.error) {
         throw resp.data.error
       }
-      return resp.data.orderDtoList
+      return resp.data.sceneDtoList
     }).then(function (items) {
       items = items || []
       return items.map((item) => {
         return {
-          'id': item.id,
+          'id': item.orderId,
           'reviewId': item.benacoScanId,
           'title': item.description,
           'thumbnail': '/static/demo-data/paris.jpeg', // TODO
