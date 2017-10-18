@@ -48,7 +48,12 @@ export default {
         if (state.current.memberName === 'unreAdmin') {
           return ['/menu/admin/recharge', '/menu/admin/panorama'].indexOf(key) >= 0
         } else {
-          return ['/menu/user/scans'].indexOf(key) >= 0
+          return [
+            '/menu/user/scans',
+            '/menu/user/info',
+            '/menu/user/records',
+            '/menu/user/help'
+          ].indexOf(key) >= 0
         }
       }
     }

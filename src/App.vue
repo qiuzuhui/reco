@@ -29,6 +29,7 @@
           :key="i"
           @click.stop="$router.push(item.path)"
           v-show="item.permit"
+          :class="{selected:$router.currentRoute.path == item.path}"
         >
           <v-list-tile-action>
             <v-icon light v-html="item.icon"></v-icon>
@@ -96,6 +97,24 @@
           title: '2D处理',
           path: '/admin/panorama',
           permit: checkPermission('/menu/admin/panorama')
+        },
+        {
+          icon: 'account_circle',
+          title: '账户信息',
+          path: '/user/info',
+          permit: checkPermission('/menu/user/info')
+        },
+        {
+          icon: 'swap_vert',
+          title: '消费记录',
+          path: '/user/records',
+          permit: checkPermission('/menu/user/records')
+        },
+        {
+          icon: 'help',
+          title: '帮助（常见问题）',
+          path: '/help',
+          permit: checkPermission('/menu/user/help')
         }
       ]
       this.$store.dispatch('scans/reFetch')
