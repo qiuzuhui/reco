@@ -30,6 +30,7 @@
           @click.stop="$router.push(item.path)"
           v-show="item.permit"
           :class="{selected:$router.currentRoute.path == item.path}"
+          class="nav-item"
         >
           <v-list-tile-action>
             <v-icon light v-html="item.icon"></v-icon>
@@ -160,5 +161,11 @@
   .alert-list .alert .alert__dismissible > .icon,
   .alert-list .alert .alert__icon.icon {
     color: white;
+  }
+  .nav-item.selected{
+    border-right: solid 3px #3f51b5;
+  }
+  .nav-item.selected .list__tile{
+    padding-right: 13px;
   }
 </style>
