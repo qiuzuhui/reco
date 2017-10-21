@@ -12,7 +12,8 @@ module.exports = {
   entry: {
     app: './src/main.js',
     login:'./src/login.js',
-    register: './src/register.js'
+    register: './src/register.js',
+    forget: './src/forget.js'
   },
   output: {
     path: config.build.assetsRoot,

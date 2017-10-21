@@ -43,6 +43,12 @@ module.exports = merge(baseWebpackConfig, {
       chunks: ['register'],
       inject: true
     }),
+    new HtmlWebpackPlugin({
+      filename: 'forget.html',
+      template: 'index.html',
+      chunks: ['forget'],
+      inject: true
+    }),
     new FriendlyErrorsPlugin()
   ]
 })

@@ -20,15 +20,15 @@
         </v-layout>
         <v-layout class="info-field" row>
           <v-flex class="info-label">当前余额</v-flex>
-          <v-flex>{{currentUser.totalAmount}}</v-flex>
+          <v-flex>{{currentUser.balance}} 元</v-flex>
         </v-layout>
         <v-layout class="info-field" row>
           <v-flex class="info-label">冻结金额</v-flex>
-          <v-flex>{{currentUser.freezeAmount}}</v-flex>
+          <v-flex>{{currentUser.freezeAmount}} 元</v-flex>
         </v-layout>
         <v-layout class="info-field" row>
           <v-flex class="info-label">当年消费总额</v-flex>
-          <v-flex>{{currentUser.consumptionAmount}}</v-flex>
+          <v-flex>{{currentUser.consumeAmount}} 元</v-flex>
         </v-layout>
       </v-flex>
     </v-layout>
