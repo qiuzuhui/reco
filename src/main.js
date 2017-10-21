@@ -9,11 +9,18 @@ import App from './App'
 import router from './router'
 import store from './store'
 import Router from 'vue-router'
+import moment from 'moment'
 
 Vue.use(Vuetify)
 Vue.use(vuex)
 Vue.use(VueResource)
 Vue.config.productionTip = false
+
+Vue.filter('formatDate', function (value) {
+  if (value) {
+    return moment(String(value)).format('MM/DD/YYYY hh:mm')
+  }
+})
 
 store.dispatch('users/current').then((current) => {
   router.routes.push({
