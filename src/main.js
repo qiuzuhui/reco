@@ -28,7 +28,8 @@ store.dispatch('users/current').then((current) => {
     template: '<App/>',
     components: {App}
   })
-}).catch(() => {
+}).catch((err) => {
+  console.error(err)
   location.href = 'login.html'
 })
 

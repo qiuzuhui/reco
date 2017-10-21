@@ -23,11 +23,11 @@ export default {
     })
   },
   current () {
-    return Vue.http.get('member/getCurrMember').then(function (resp) {
+    return Vue.http.get('member/getMemberInfomaction.do').then(function (resp) {
       if (resp.data.error) {
         throw resp.data.error
       }
-      return resp.data.memberDto
+      return resp.data.memberInfomationDto
     })
   },
   register (user) {
@@ -45,5 +45,46 @@ export default {
       }
       return resp.data.memberDtoList
     })
+  },
+  verifyAccount (mailOrTel) {
+    return Vue.http.post('member/verifyAccount.do', {mailOrTel: mailOrTel}, {
+      emulateJSON: true
+    }).then(function (resp) {
+      if (resp.data.error) {
+        throw resp.data.error
+      }
+      return resp.data.memberDto // TODO
+    })
+  },
+  sendVerifyCode (mailOrTel, code) {
+    return Vue.http.post('member/sendVerifyCode.do', {mailOrTel: mailOrTel}, {
+      emulateJSON: true
+    }).then(function (resp) {
+      if (resp.data.error) {
+        throw resp.data.error
+      }
+      return resp.data.memberDto // TODO
+    })
+  },
+  verifyCode (mailOrTel, code) {
+    return Vue.http.post('member/verifyCode.do', {mailOrTel: mailOrTel, code: code}, {
+      emulateJSON: true
+    }).then(function (resp) {
+      if (resp.data.error) {
+        throw resp.data.error
+      }
+      return resp.data.memberDto // TODO
+    })
+  },
+  resetPassword (mailOrTel, tokenName, password) {
+    return Vue.http.post('member/resetPassword.do', {mailOrTel, tokenName, password}, {
+      emulateJSON: true
+    }).then(function (resp) {
+      if (resp.data.error) {
+        throw resp.data.error
+      }
+      return resp.data.memberDto // TODO
+    })
   }
+
 }

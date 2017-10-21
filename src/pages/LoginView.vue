@@ -27,7 +27,7 @@
                 </v-btn>
                 <v-layout row>
                   <v-flex xs6 text-xs-left>
-                    <v-btn flat primary>忘记密码</v-btn>
+                    <v-btn flat primary  @click.stop="linkTo('/forget.html')">忘记密码</v-btn>
                   </v-flex>
                   <v-flex xs6 text-xs-right>
                     <v-btn flat primary @click.stop="linkTo('/register.html')">注册</v-btn>
