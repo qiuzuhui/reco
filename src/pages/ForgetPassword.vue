@@ -129,6 +129,11 @@
       verifyAccount () {
         return api.users.verifyAccount(this.mailOrTel).then(() => {
           this.paneState = 2
+        }).catch((err) => {
+          this.$store.commit('notifications/add', {
+            type: 'error',
+            msg: err.message || '账户不存在'
+          })
         })
       },
       sendVerifyCode () {
@@ -145,6 +150,11 @@
         return api.users.verifyCode(this.mailOrTel, this.vCode).then((data) => {
           this.paneState = 3
           this.token = data.token
+        }).catch((err) => {
+          this.$store.commit('notifications/add', {
+            type: 'error',
+            msg: err.message || '验证失败'
+          })
         })
       },
       resetPassword () {
