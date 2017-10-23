@@ -7,6 +7,7 @@ module.exports = {
     index: path.resolve(__dirname, '../dist/index.html'),
     login: path.resolve(__dirname, '../dist/login.html'),
     register: path.resolve(__dirname, '../dist/register.html'),
+    forget: path.resolve(__dirname, '../dist/forget.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
