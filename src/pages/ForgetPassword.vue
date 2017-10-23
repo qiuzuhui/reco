@@ -140,16 +140,16 @@
         return api.users.sendVerifyCode(this.mailOrTel).then(() => {
           this.timer = 60
           let t = setInterval(() => {
-            if (this.timer-- <= 0) {
+            if (--this.timer === 0) {
               clearInterval(t)
             }
           }, 1000)
         })
       },
       verifyCode () {
-        return api.users.verifyCode(this.mailOrTel, this.vCode).then((data) => {
+        return api.users.verifyCode(this.mailOrTel, this.vCode).then((token) => {
           this.paneState = 3
-          this.token = data.token
+          this.token = token
         }).catch((err) => {
           this.$store.commit('notifications/add', {
             type: 'error',

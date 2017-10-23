@@ -73,7 +73,7 @@ export default {
       if (resp.data.error) {
         throw resp.data.error
       }
-      return resp.data.memberDto // TODO
+      return resp.data.token
     })
   },
   resetPassword (mailOrTel, tokenName, password) {
@@ -84,6 +84,15 @@ export default {
         throw resp.data.error
       }
       return resp.data.memberDto // TODO
+    })
+  },
+
+  findRecordsConsumption () {
+    return Vue.http.get('order/findRecordsConsumption.do').then(function (resp) {
+      if (resp.data.error) {
+        throw resp.data.error
+      }
+      return resp.data.orderDtoList
     })
   }
 
