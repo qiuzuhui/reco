@@ -30,6 +30,14 @@ export default {
       return resp.data.memberInfomationDto
     })
   },
+  price () {
+    return Vue.http.get('member/getPrice.do').then(function (resp) {
+      if (resp.data.error) {
+        throw resp.data.error
+      }
+      return resp.data.priceDto.price
+    })
+  },
   register (user) {
     return Vue.http.post('member/register.do', {memberDto: user}).then(function (resp) {
       if (resp.data.error) {

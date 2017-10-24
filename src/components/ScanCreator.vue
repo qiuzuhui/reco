@@ -35,10 +35,16 @@
       </v-layout>
       <image-picker v-model="scan.photos"></image-picker>
       <div class="text-xs-center text-md-right pt-4">
+        <div v-show="scan.photos.length > 0 " style="padding: 5px;color:red;">
+          当前余额 {{balance}}元，
+          本次共 {{scan.photos.length}} 张图片,
+          预计消费 {{ price * scan.photos.length / scan.number }} 元
+          <span v-if="balance< (price * scan.photos.length / scan.number )">, 余额不足此次消费。</span>
+        </div>
         <v-btn
           :loading="creating"
           @click.native.stop="createScan()"
-          :disabled="creating"
+          :disabled="creating || scan.photos.length==0 ||(balance< (price * scan.photos.length / scan.number ))"
           primary
         >
           创建
@@ -59,6 +65,7 @@
 
   import rules from './common/rules'
   import ImagePicker from './ImagePicker'
+  import { mapGetters } from 'vuex'
 
   export default {
     name: 'ScanCreator',
@@ -85,7 +92,6 @@
     methods: {
       onChangeScanType () {
         if (this.scan.type === 1) {
-          console.log(this.scan.type)
           this.scan.number = 1
         }
       },
@@ -108,6 +114,12 @@
           })
         }
       }
+    },
+    computed: {
+      ...mapGetters({
+        balance: 'users/balance',
+        price: 'users/price'
+      })
     }
   }
 </script>

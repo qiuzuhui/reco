@@ -21,7 +21,8 @@ export default {
 
     async current ({commit}) {
       let current = await api.users.current()
-      current.balance = await api.balance.balance(current.id)
+      // current.balance = await api.balance.balance(current.id)
+      current.price = await api.users.price()
       commit('setCurrent', current)
       return current
     },
@@ -41,6 +42,8 @@ export default {
   },
   getters: {
     current: (state) => state.current,
+    balance: (state) => state.current ? state.current.balance : 0,
+    price: (state) => state.current ? state.current.price : 0,
     all: (state) => state.data,
     checkPermission: (state) => {
       return (key) => {

@@ -18,7 +18,7 @@ export default {
           'id': item.orderId,
           'reviewId': item.benacoScanId,
           'title': item.description,
-          'thumbnail': '/thumb_image/' + item.thumbImagePath, // TODO
+          'thumbnail': encodeURI('/thumb_image/' + item.thumbImagePath),
           'status': item.status,
           'createTime': item.createTime
         }
