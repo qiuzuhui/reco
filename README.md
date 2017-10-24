@@ -1,6 +1,6 @@
 # reco
 
-> RECO web-site
+> ONWING web-site
 
 ## Build Setup
 

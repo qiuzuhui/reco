@@ -16,7 +16,7 @@
         </v-layout>
         <v-layout class="info-field" row>
           <v-flex class="info-label">等级</v-flex>
-          <v-flex>{{currentUser.level}}</v-flex>
+          <v-flex>{{currentUser.level | memberLevel}}</v-flex>
         </v-layout>
         <v-layout class="info-field" row>
           <v-flex class="info-label">当前余额</v-flex>

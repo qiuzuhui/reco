@@ -75,7 +75,7 @@
         miniVariant: false,
         right: true,
         rightDrawer: false,
-        title: 'RECO'
+        title: 'ONWING'
       }
     },
     created () {

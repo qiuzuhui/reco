@@ -22,6 +22,12 @@ Vue.filter('formatDate', function (value) {
   }
 })
 
+Vue.filter('memberLevel', function (value) {
+  if (value) {
+    return {1: '金牌', 2: '银牌', 3: '铜牌'}[value]
+  }
+})
+
 store.dispatch('users/current').then((current) => {
   router.routes.push({
     path: '/',

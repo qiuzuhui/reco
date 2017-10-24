@@ -35,8 +35,10 @@
               <v-card-text>
                 <div class="title mb-2">请填写您需要找回密码的账号</div>
                 <v-text-field
+                  ref="mailOrTelInput"
                   label="邮箱或者手机号码"
                   v-model="mailOrTel"
+                  :rules="[rules.required,rules.mailOrTel]"
                 ></v-text-field>
                 <v-btn
                   block primary
@@ -168,7 +170,7 @@
     },
     methods: {
       verifyAccount () {
-        return api.users.verifyAccount(this.mailOrTel).then(() => {
+        return this.$refs.mailOrTelInput.validate() && api.users.verifyAccount(this.mailOrTel).then(() => {
           this.paneState = 2
         }).catch((err) => {
           this.$store.commit('notifications/add', {
@@ -199,7 +201,7 @@
         })
       },
       resetPassword () {
-        return api.users.resetPassword(this.mailOrTel, this.token, this.user.password).then(() => {
+        return this.$refs.verifyPwd.validate() && api.users.resetPassword(this.mailOrTel, this.token, this.user.password).then(() => {
           this.paneState = 4
         }).catch((err) => {
           this.$store.commit('notifications/add', {
