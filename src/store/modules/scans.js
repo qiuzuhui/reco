@@ -14,7 +14,6 @@ export default {
     async add ({dispatch, commit}, scan) {
       await api.scans.add(scan)
       await dispatch('reFetch')
-      await dispatch('users/current')
     },
     async reFetch ({dispatch, commit}) {
       let data = await api.scans.fetch()
