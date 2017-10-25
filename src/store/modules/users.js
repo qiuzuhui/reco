@@ -21,8 +21,9 @@ export default {
 
     async current ({commit}) {
       let current = await api.users.current()
-      // current.balance = await api.balance.balance(current.id)
-      current.price = await api.users.price()
+      if (current) {
+        current.price = await api.users.price()
+      }
       commit('setCurrent', current)
       return current
     },
@@ -52,11 +53,11 @@ export default {
           return ['/menu/admin/recharge', '/menu/admin/panorama'].indexOf(key) >= 0
         } else {
           return [
-            '/menu/user/scans',
-            '/menu/user/info',
-            '/menu/user/records',
-            '/menu/user/help'
-          ].indexOf(key) >= 0
+              '/menu/user/scans',
+              '/menu/user/info',
+              '/menu/user/records',
+              '/menu/user/help'
+            ].indexOf(key) >= 0
         }
       }
     }
