@@ -53,11 +53,11 @@ export default {
           return ['/menu/admin/recharge', '/menu/admin/panorama'].indexOf(key) >= 0
         } else {
           return [
-              '/menu/user/scans',
-              '/menu/user/info',
-              '/menu/user/records',
-              '/menu/user/help'
-            ].indexOf(key) >= 0
+            '/menu/user/scans',
+            '/menu/user/info',
+            '/menu/user/records',
+            '/menu/user/help'
+          ].indexOf(key) >= 0
         }
       }
     }
