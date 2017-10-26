@@ -27,7 +27,7 @@
                        large block @click="login()">
                   登录
                 </v-btn>
-                <v-layout row>
+                <v-layout row mb-4>
                   <v-flex xs6 text-xs-left>
                     <v-btn flat primary @click.stop="linkTo('/forget.html')">忘记密码</v-btn>
                   </v-flex>
@@ -35,25 +35,7 @@
                     <v-btn flat primary @click.stop="linkTo('/register.html')">注册</v-btn>
                   </v-flex>
                 </v-layout>
-                <div class="spr" style="padding: 0 0 5px;">
-              <span
-                style=" position: relative; top: 12px; background: white; padding: 0px 10px; color: gray; ">第三方登录</span>
-                  <hr>
-                </div>
               </v-card-text>
-              <v-card-actions style="padding-bottom: 20px;">
-                <v-layout>
-                  <v-flex xs4>
-                    <v-avatar><img src="/static/images/QQ@3x.png" alt=""></v-avatar>
-                  </v-flex>
-                  <v-flex xs4>
-                    <v-avatar><img src="/static/images/wechat@3x.png" alt=""></v-avatar>
-                  </v-flex>
-                  <v-flex xs4>
-                    <v-avatar><img src="/static/images/weibo@3x.png" alt=""></v-avatar>
-                  </v-flex>
-                </v-layout>
-              </v-card-actions>
             </v-card>
           </v-flex>
         </v-layout>
