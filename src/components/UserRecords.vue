@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="userRecords">
     <v-data-table
       ref="dataTable"
       v-bind:headers="headers"
@@ -20,8 +20,8 @@
         <td></td>
         <td></td>
         <td></td>
-        <td style="padding: 0 24px;">合计</td>
-        <td style="padding: 0 24px;">{{consumeAmount}}</td>
+        <td style="padding: 0 24px;font-weight: bolder;">合计</td>
+        <td style="padding: 0 24px;font-weight: bolder;">{{consumeAmount}}</td>
       </template>
     </v-data-table>
   </v-container>
@@ -54,3 +54,9 @@
   }
 
 </script>
+<style>
+  .userRecords table.table thead th{
+    font-weight: bolder;
+    font-size: 14px;
+  }
+</style>

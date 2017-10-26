@@ -1,5 +1,6 @@
 <template>
   <v-app light class="blue">
+    <notifications></notifications>
     <v-container grid-list-md>
       <div style="text-align: center;padding-top: 30px;">
         <h4 style="width: 100%;color: white;">企业注册</h4>
@@ -152,8 +153,10 @@
   import VSelect from '../../node_modules/vuetify/src/components/VSelect/VSelect'
   import rules from '../components/common/rules'
   import CityData from '../store/CityData'
+  import notifications from '../components/notifications'
+
   export default {
-    components: {VSelect},
+    components: {VSelect, notifications},
     data () {
       return {
         paneState: 1,
