@@ -8,7 +8,7 @@
           </div>
         </v-flex>
         <v-flex xs12 sm6 md4 lg3>
-          <div class="title-btn" @click.stop="filterStatus = '0'">
+          <div class="title-btn" @click.stop="filterStatus = '0';searchText='';">
             <v-btn flat primary :outline="filterStatus == '0'">全部</v-btn>
           </div>
           <div class="title-btn" @click.stop="filterStatus = '2'">
@@ -23,6 +23,7 @@
             placeholder="搜索"
             append-icon="search"
             class="search-box"
+            v-model="searchText"
           ></v-text-field>
         </v-flex>
       </v-layout>
@@ -115,7 +116,8 @@
         shareLink: '',
         filterStatus: '0',
         previewUrl: '',
-        fab: false
+        fab: false,
+        searchText: ''
       }
     },
     components: {
@@ -165,12 +167,45 @@
       },
       openShareLink () {
         window.open(this.shareLink)
-      }
+      },
+      _patternToRegExp: function (pattern) {
+        /*
+         summary:
+         Helper function to convert a simple pattern to a regular expression for matching.
+         description:
+         Returns a regular expression object that conforms to the defined conversion rules.
+         For example:
+         - ca*   -> /^ca.*$/
+         - *ca*  -> /^.*ca.*$/
+         - *c\*a*  -> /^.*c\*a.*$/
+         - *c\*a?*  -> /^.*c\*a..*$/
 
+         and so on.
+         pattern: string
+         A simple matching pattern to convert that follows basic rules:
+
+         - * Means match anything, so ca* means match anything starting with ca
+         - ? Means match single character.  So, b?b will match to bob and bab, and so on.
+         - \ is an escape character.  So for example, \* means do not treat * as a match, but literal character *.
+
+         To use a \ as a character in the string, it must be escaped.  So in the pattern it should be
+         represented by \\ to be treated as an ordinary \ character instead of an escape.
+         */
+        return new RegExp('^' + pattern.replace(/(\\.)|(\*)|(\?)|\W/g, function (str, literal, star, question) {
+          return star ? '.*' : question ? '.' : literal || '\\' + str
+        }) + '$', this.ignoreCase ? 'mi' : 'm')
+      }
     },
     computed: {
       scans () {
+        let searchText = this.searchText.trim()
+        /* eslint no-useless-escape: "off" */
+        let regx = this._patternToRegExp('*' + searchText.replace(/([\\\*\?])/g, '\\$1') + '*')
+        console.log(regx)
         return this.$store.getters['scans/all'].filter((item) => {
+          if (searchText && !regx.test(item.title)) {
+            return false
+          }
           if (this.filterStatus === '0') {
             return true
           } else if (this.filterStatus === '1') {
