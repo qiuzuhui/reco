@@ -13,12 +13,14 @@
                     v-model="user.tel"
                     placeholder="手机号/邮箱"
                     :rules="[rules.required]"
+                    @keyup.enter="login()"
                   ></v-text-field>
                   <v-text-field
                     v-model="user.password"
                     placeholder="密码"
                     type="password"
                     :rules="[rules.required]"
+                    @keyup.enter="login()"
                   ></v-text-field>
                 </v-form>
                 <div style="color: red;text-align: center;">{{errorMsg}}</div>
