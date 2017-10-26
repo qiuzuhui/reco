@@ -178,6 +178,8 @@
           } else {
             return item.status === '2' || item.status === '3'
           }
+        }).sort(function (item1, item2) {
+          return item2.createTime - item1.createTime
         })
       }
     }
