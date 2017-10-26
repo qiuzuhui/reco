@@ -35,7 +35,10 @@
       </v-layout>
       <image-picker v-model="scan.photos"></image-picker>
       <div class="text-xs-center text-md-right pt-4">
-        <div v-show="scan.photos.length > 0 " style="padding: 5px;color:red;">
+        <div v-show="scan.photos.length > 0 && scan.type ==0 && ( scan.photos.length % scan.number !=0 ) " style="padding: 5px;color:red;">
+          平面照片张数 {{scan.photos.length }} 不是单点张数 {{scan.number}} 的整数倍
+        </div>
+        <div v-show="scan.photos.length > 0 " style="padding: 5px;color:green;">
           当前余额 {{balance}}元，
           本次共 {{scan.photos.length}} 张图片,
           预计消费 {{ price * scan.photos.length / scan.number }} 元
@@ -44,7 +47,7 @@
         <v-btn
           :loading="creating"
           @click.native.stop="createScan()"
-          :disabled="creating || scan.photos.length==0 ||(balance< (price * scan.photos.length / scan.number ))"
+          :disabled="creating || scan.photos.length==0 ||(balance< (price * scan.photos.length / scan.number )) || (scan.type ==0 && ( scan.photos.length % scan.number !=0 ))"
           primary
         >
           创建

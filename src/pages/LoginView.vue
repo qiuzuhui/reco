@@ -8,17 +8,19 @@
               <v-card-title class="headline blue" style="color: white;line-height: 60px !important;">登陆
               </v-card-title>
               <v-card-text>
-                <v-text-field
-                  v-model="user.tel"
-                  placeholder="用户名"
-                  :rules="[rules.required]"
-                ></v-text-field>
-                <v-text-field
-                  v-model="user.password"
-                  placeholder="密码"
-                  type="password"
-                  :rules="[rules.required]"
-                ></v-text-field>
+                <v-form ref="dataForm">
+                  <v-text-field
+                    v-model="user.tel"
+                    placeholder="手机号/邮箱"
+                    :rules="[rules.required]"
+                  ></v-text-field>
+                  <v-text-field
+                    v-model="user.password"
+                    placeholder="密码"
+                    type="password"
+                    :rules="[rules.required]"
+                  ></v-text-field>
+                </v-form>
                 <div style="color: red;text-align: center;">{{errorMsg}}</div>
                 <v-btn class="blue" style="color:white;"
                        :loading="loging"
@@ -27,7 +29,7 @@
                 </v-btn>
                 <v-layout row>
                   <v-flex xs6 text-xs-left>
-                    <v-btn flat primary  @click.stop="linkTo('/forget.html')">忘记密码</v-btn>
+                    <v-btn flat primary @click.stop="linkTo('/forget.html')">忘记密码</v-btn>
                   </v-flex>
                   <v-flex xs6 text-xs-right>
                     <v-btn flat primary @click.stop="linkTo('/register.html')">注册</v-btn>
@@ -79,6 +81,9 @@
     },
     methods: {
       login () {
+        if (!this.$refs.dataForm.validate()) {
+          return
+        }
         this.loging = true
         this.$store.dispatch('users/login', this.user).then(() => {
           this.loging = false

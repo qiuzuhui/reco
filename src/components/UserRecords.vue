@@ -14,6 +14,7 @@
         <td>{{ props.item.goodsNum }}</td>
         <td>{{ props.item.goodsActualPrice }}</td>
         <td>{{ props.item.actualAmount }}</td>
+        <td>{{ statusMsg[props.item.status]}}</td>
       </template>
       <template slot="footer">
         <td></td>
@@ -30,12 +31,14 @@
   export default {
     data () {
       return {
+        statusMsg: ['处理中', '处理中', '完成', '完成'],
         headers: [
           {text: '时间', align: 'left', value: 'createTime'},
           {text: '商品名/场景名', align: 'left', value: 'description'},
           {text: '数量', align: 'left', value: 'goodsNum'},
           {text: '单价 （元）', align: 'left', value: 'goodsActualPrice'},
-          {text: '总价 （元）', align: 'left', value: 'actualAmount'}
+          {text: '总价 （元）', align: 'left', value: 'actualAmount'},
+          {status: '处理状态', align: 'left', value: 'status'}
         ],
         items: []
       }
