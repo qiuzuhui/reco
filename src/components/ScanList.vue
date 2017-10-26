@@ -38,13 +38,13 @@
         <v-card-actions>
           <span>{{scan.title}}</span>
           <v-spacer></v-spacer>
-          <v-btn icon @click.native.stop="preview(scan)">
+          <v-btn icon style="color: #3f51b5;" @click.native.stop="preview(scan)" :disabled="scan.status != 2">
             <v-icon>fullscreen</v-icon>
           </v-btn>
-          <v-btn icon @click.native.stop="openShareDialog(scan)">
+          <v-btn icon style="color: #3f51b5;" @click.native.stop="openShareDialog(scan)" :disabled="scan.status != 2">
             <v-icon>share</v-icon>
           </v-btn>
-          <v-btn icon @click.native.stop="confirmRemove(scan)">
+          <v-btn icon style="color: #3f51b5;" @click.native.stop="confirmRemove(scan)">
             <v-icon>delete</v-icon>
           </v-btn>
         </v-card-actions>
