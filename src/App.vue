@@ -55,8 +55,7 @@
         clipped: true,
         drawer: true,
         fixed: false,
-        navItems: [
-        ],
+        navItems: [],
         miniVariant: false,
         right: true,
         rightDrawer: false,
@@ -104,15 +103,19 @@
         }
       ]
       this.$store.dispatch('scans/reFetch')
+      setInterval(() => {
+        this.$store.dispatch('scans/reFetch')
+      }, 60 * 1000)
     }
   }
 </script>
 
 <style>
-  .nav-item.selected{
+  .nav-item.selected {
     border-right: solid 3px #3f51b5;
   }
-  .nav-item.selected .list__tile{
+
+  .nav-item.selected .list__tile {
     padding-right: 13px;
   }
 </style>

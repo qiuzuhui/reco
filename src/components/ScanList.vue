@@ -30,7 +30,7 @@
     </v-flex>
     <v-flex xs12>
     </v-flex>
-    <v-flex xs12 sm6 md4 lg3 class="pa-1" v-for="(scan,index) in scans" :key="index">
+    <v-flex xs12 sm6 md4 lg3 class="pa-1" v-for="(scan,index) in scans" :key="scan.id">
       <v-card class="scan-card">
         <v-card-media :src="scan.thumbnail" height="200px" @click.native.stop="preview(scan)">
           <circle9 style="margin: auto;" size="60px" v-show="scan.status == '0' || scan.status == '1' "></circle9>

@@ -22,6 +22,7 @@
         <td></td>
         <td style="padding: 0 24px;font-weight: bolder;">合计</td>
         <td style="padding: 0 24px;font-weight: bolder;">{{consumeAmount}}</td>
+        <td></td>
       </template>
     </v-data-table>
   </v-container>
