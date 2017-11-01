@@ -11,17 +11,17 @@
       <template slot="items" scope="props">
         <td>{{ new Date(props.item.createTime) | formatDate }}</td>
         <td>{{ props.item.description }}</td>
-        <td>{{ props.item.goodsNum }}</td>
-        <td>{{ props.item.goodsActualPrice }}</td>
-        <td>{{ props.item.actualAmount }}</td>
+        <td style="text-align: right;">{{ props.item.goodsNum }}</td>
+        <td style="text-align: right;">{{ props.item.goodsActualPrice }}</td>
+        <td style="text-align: right;">{{ props.item.actualAmount }}</td>
         <td>{{ statusMsg[props.item.status]}}</td>
       </template>
       <template slot="footer">
         <td></td>
         <td></td>
         <td></td>
-        <td style="padding: 0 24px;font-weight: bolder;">合计</td>
-        <td style="padding: 0 24px;font-weight: bolder;">{{consumeAmount}}</td>
+        <td style="padding: 0 24px;font-weight: bolder;text-align: right;">合计</td>
+        <td style="padding: 0 24px;font-weight: bolder;text-align: right;">{{consumeAmount}}</td>
         <td></td>
       </template>
     </v-data-table>
@@ -36,10 +36,10 @@
         headers: [
           {text: '时间', align: 'left', value: 'createTime'},
           {text: '商品名/场景名', align: 'left', value: 'description'},
-          {text: '数量', align: 'left', value: 'goodsNum'},
-          {text: '单价 （元）', align: 'left', value: 'goodsActualPrice'},
-          {text: '总价 （元）', align: 'left', value: 'actualAmount'},
-          {status: '处理状态', align: 'left', value: 'status'}
+          {text: '数量', align: 'right', value: 'goodsNum'},
+          {text: '单价 （元）', align: 'right', value: 'goodsActualPrice'},
+          {text: '总价 （元）', align: 'right', value: 'actualAmount'},
+          {text: '处理状态', align: 'left', value: 'status'}
         ],
         items: []
       }

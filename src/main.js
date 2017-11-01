@@ -10,6 +10,7 @@ import router from './router'
 import store from './store'
 import Router from 'vue-router'
 import moment from 'moment'
+import numeral from 'numeral'
 
 Vue.use(Vuetify)
 Vue.use(vuex)
@@ -24,8 +25,12 @@ Vue.filter('formatDate', function (value) {
 
 Vue.filter('memberLevel', function (value) {
   if (value) {
-    return {1: '金牌', 2: '银牌', 3: '铜牌'}[value]
+    return {1: '金牌', 2: '银牌', 3: '铜牌', 4: '普通'}[value]
   }
+})
+
+Vue.filter('currency', function (value) {
+  return numeral(value).format('0,0')
 })
 
 store.dispatch('users/current').then((current) => {

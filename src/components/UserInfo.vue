@@ -20,15 +20,15 @@
         </v-layout>
         <v-layout class="info-field" row>
           <v-flex class="info-label">当前余额</v-flex>
-          <v-flex>{{currentUser.balance}} 元</v-flex>
+          <v-flex>{{currentUser.balance | currency}} 元</v-flex>
         </v-layout>
         <v-layout class="info-field" row>
           <v-flex class="info-label">冻结金额</v-flex>
-          <v-flex>{{currentUser.freezeAmount}} 元</v-flex>
+          <v-flex>{{currentUser.freezeAmount | currency}} 元</v-flex>
         </v-layout>
         <v-layout class="info-field" row>
           <v-flex class="info-label">当年消费总额</v-flex>
-          <v-flex>{{currentUser.consumeAmount}} 元</v-flex>
+          <v-flex>{{currentUser.consumeAmount | currency}} 元</v-flex>
         </v-layout>
       </v-flex>
     </v-layout>
@@ -36,6 +36,7 @@
 </template>
 <script>
   import { mapGetters } from 'vuex'
+
   export default {
     data () {
       return {}
