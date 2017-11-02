@@ -4,6 +4,13 @@
       <v-layout row wrap>
         <v-flex xs12 md6>
           <h4>2D 合成</h4>
+          <v-select v-model="data.memberId"
+                    label="会员"
+                    :items="allUsers"
+                    item-text="label"
+                    item-value="id"
+                    :rules="[rules.required]"
+          ></v-select>
           <v-select v-model="data.orderId"
                     label="场景"
                     :items="allScans"
@@ -25,13 +32,16 @@
   import _ from 'lodash'
   import ImagePicker from './ImagePicker'
   import api from '../api'
+  import rules from './common/rules'
 
   export default {
     data () {
       return {
         valid: false,
         loading: false,
+        rules: rules,
         data: {
+          memberId: '',
           orderId: '',
           photos: []
         }
@@ -70,12 +80,24 @@
     },
     computed: {
       allScans () {
-        return this.$store.getters['scans/all'].map((item) => {
+        return this.$store.getters['scans/all'].filter((item) => {
+          return item.memberId === this.data.memberId
+        }).map((item) => {
           item = _.clone(item)
           item.label = `${item.title} (id: ${item.id})`
           return item
         })
+      },
+      allUsers () {
+        return this.$store.getters['users/all'].map((user) => {
+          user = _.clone(user)
+          user.label = `${user.memberName} (id: ${user.id})`
+          return user
+        })
       }
+    },
+    created () {
+      this.$store.dispatch('users/fetch')
     }
   }
 </script>
