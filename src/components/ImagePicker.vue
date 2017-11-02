@@ -26,7 +26,7 @@
         </v-card-text>
       </v-card>
     </v-flex>
-    <input type="file" style="display: none;" @change='addFiles()' multiple="true" ref="uploadFiles"/>
+    <input type="file" style="display: none;" @change='addFiles()' accept="image/jpeg,image/jpg"  multiple="true" ref="uploadFiles"/>
   </v-layout>
 </template>
 <script>
