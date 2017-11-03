@@ -49,7 +49,7 @@ export default {
     checkPermission: (state) => {
       return (key) => {
         // TODO
-        if (state.current.memberName === 'unreAdmin') {
+        if (state.current.memberName === 'admin') {
           return ['/menu/admin/recharge', '/menu/admin/panorama'].indexOf(key) >= 0
         } else {
           return [
