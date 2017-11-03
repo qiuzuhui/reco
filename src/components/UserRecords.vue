@@ -12,8 +12,8 @@
         <td>{{ new Date(props.item.createTime) | formatDate }}</td>
         <td>{{ props.item.description }}</td>
         <td style="text-align: right;">{{ props.item.goodsNum }}</td>
-        <td style="text-align: right;">{{ props.item.goodsActualPrice }}</td>
-        <td style="text-align: right;">{{ props.item.actualAmount }}</td>
+        <td style="text-align: right;">{{ props.item.goodsActualPrice | currency}}</td>
+        <td style="text-align: right;">{{ props.item.actualAmount | currency}}</td>
         <td>{{ statusMsg[props.item.status]}}</td>
       </template>
       <template slot="footer">
@@ -21,7 +21,7 @@
         <td></td>
         <td></td>
         <td style="padding: 0 24px;font-weight: bolder;text-align: right;">合计</td>
-        <td style="padding: 0 24px;font-weight: bolder;text-align: right;">{{consumeAmount}}</td>
+        <td style="padding: 0 24px;font-weight: bolder;text-align: right;">{{consumeAmount | currency}}</td>
         <td></td>
       </template>
     </v-data-table>
