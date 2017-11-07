@@ -43,6 +43,7 @@
         // TODO
         let formData = new FormData()
         formData.append('orderId', this.data.orderId)
+        formData.append('privacy', 1) // TODO
         this.data.photos.forEach(function (f) {
           formData.append('files', f.file)
         })
